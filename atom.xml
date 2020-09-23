@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://cbing.github.io</id>
+    <id>https://BCing.github.io</id>
     <title>Gridea</title>
-    <updated>2020-09-23T07:51:33.537Z</updated>
+    <updated>2020-09-23T07:52:50.027Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://cbing.github.io"/>
-    <link rel="self" href="https://cbing.github.io/atom.xml"/>
+    <link rel="alternate" href="https://BCing.github.io"/>
+    <link rel="self" href="https://BCing.github.io/atom.xml"/>
     <subtitle>温故而知新</subtitle>
-    <logo>https://cbing.github.io/images/avatar.png</logo>
-    <icon>https://cbing.github.io/favicon.ico</icon>
+    <logo>https://BCing.github.io/images/avatar.png</logo>
+    <icon>https://BCing.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Gridea</rights>
     <entry>
         <title type="html"><![CDATA[Hello Gridea]]></title>
-        <id>https://cbing.github.io/post/hello-gridea/</id>
-        <link href="https://cbing.github.io/post/hello-gridea/">
+        <id>https://BCing.github.io/post/hello-gridea/</id>
+        <link href="https://BCing.github.io/post/hello-gridea/">
         </link>
         <updated>2018-12-11T16:00:00.000Z</updated>
         <summary type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
