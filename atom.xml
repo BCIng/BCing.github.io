@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://BCing.github.io</id>
     <title>CBing Life</title>
-    <updated>2020-09-29T04:06:25.320Z</updated>
+    <updated>2020-09-29T04:13:07.572Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://BCing.github.io"/>
     <link rel="self" href="https://BCing.github.io/atom.xml"/>
@@ -17,6 +17,27 @@
         </link>
         <updated>2020-09-29T03:47:35.000Z</updated>
         <content type="html"><![CDATA[<p>Android 基础</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[关于]]></title>
+        <id>https://BCing.github.io/post/about/</id>
+        <link href="https://BCing.github.io/post/about/">
+        </link>
+        <updated>2019-01-25T11:09:48.000Z</updated>
+        <content type="html"><![CDATA[<blockquote>
+<p>欢迎来到我的小站呀，很高兴遇见你！🤝</p>
+</blockquote>
+<h2 id="关于本站">🏠 关于本站</h2>
+<pre><code>记录个人生活、工作、小心情
+</code></pre>
+<h2 id="博主是谁">👨‍💻 博主是谁</h2>
+<p>男的</p>
+<h2 id="兴趣爱好">⛹ 兴趣爱好</h2>
+<pre><code>看书、跑步、研究黑暗料理
+</code></pre>
+<h2 id="联系我呀">📬 联系我呀</h2>
+<pre><code>📬 cbing7592@qq.com</code></pre>
 ]]></content>
     </entry>
     <entry>
