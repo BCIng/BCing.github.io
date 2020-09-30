@@ -2,18 +2,22 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Android 基础 | CBing Life</title>
+<title>SlidingMenu的使用 | CBing Life</title>
 <link rel="shortcut icon" href="https://BCing.github.io/favicon.ico?v=1601457372474">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://BCing.github.io/styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="Android 基础 | CBing Life - Atom Feed" href="https://BCing.github.io/atom.xml">
+<link rel="alternate" type="application/atom+xml" title="SlidingMenu的使用 | CBing Life - Atom Feed" href="https://BCing.github.io/atom.xml">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 
 
 
-    <meta name="description" content="Android 基础
-" />
-    <meta name="keywords" content="code" />
+    <meta name="description" content="SlidingMenu的使用
+
+		SlidingMenu menu = new SlidingMenu(this);
+		// 设置滑动方向
+		menu.setMode(SlidingMenu.LEFT);
+		// 设置监听开始滑动的..." />
+    <meta name="keywords" content="Android,code" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
     <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
   </head>
@@ -91,15 +95,19 @@
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              Android 基础
+              SlidingMenu的使用
             </h2>
             <div class="post-info">
               <span>
-                2020-09-29
+                2015-11-16
               </span>
               <span>
-                1 min read
+                2 min read
               </span>
+              
+                <a href="https://BCing.github.io/tag/9ENwBr0DW/" class="post-tag">
+                  # Android
+                </a>
               
                 <a href="https://BCing.github.io/tag/code/" class="post-tag">
                   # code
@@ -109,7 +117,46 @@
             
             <div class="post-content-wrapper">
               <div class="post-content">
-                <p>Android 基础</p>
+                <p>SlidingMenu的使用</p>
+<!-- more -->
+<pre><code>		SlidingMenu menu = new SlidingMenu(this);
+		// 设置滑动方向
+		menu.setMode(SlidingMenu.LEFT);
+		// 设置监听开始滑动的触碰范围
+		menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
+		// 设置边缘阴影的宽度，通过dimens资源文件中的ID设置
+		menu.setShadowWidthRes(R.dimen.shadow_width);
+		// 设置边缘阴影的颜色/图片，通过资源文件ID设置
+		menu.setShadowDrawable(R.drawable.shadow);
+		// 设置menu全部打开后，主界面剩余部分与屏幕边界的距离，通过dimens资源文件ID设置
+		menu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
+		// 设置是否淡入淡出
+		menu.setFadeEnabled(true);
+		// 设置淡入淡出的值，只在setFadeEnabled设置为true时有效
+		menu.setFadeDegree(0.35f);
+		// 将menu绑定到Activity，同时设置绑定类型
+		menu.attachToActivity(this, SlidingMenu.SLIDING_WINDOW);
+		// 设置menu的layout
+		menu.setMenu(R.layout.slide_menu);
+		// 设置menu的背景颜色
+		 menu.setBackgroundColor(getResources().getColor(
+		 android.R.color.background_dark));
+		// 获取menu的layout
+		View menuroot = menu.getMenu();
+		//设置menu布局中控件的事件
+		Button button1 = (Button) menuroot.findViewById(R.id.Button1);
+		button1.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(final View v) {
+				// TODO Auto-generated method stub
+Toast.makeText(MainActivity.this,&quot;点击显示menu&quot;,Toast.LENGTH_LONG).show();
+}});
+
+
+
+
+</code></pre>
 
               </div>
               <div class="toc-container">
@@ -119,15 +166,6 @@
           </article>
         </div>
 
-        
-          <div class="next-post">
-            <div class="next">下一篇</div>
-            <a href="https://BCing.github.io/post/about/">
-              <h3 class="post-title">
-                关于
-              </h3>
-            </a>
-          </div>
         
 
         
