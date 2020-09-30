@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://BCing.github.io</id>
     <title>CBing Life</title>
-    <updated>2020-09-30T09:17:19.567Z</updated>
+    <updated>2020-09-30T09:20:03.905Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://BCing.github.io"/>
     <link rel="self" href="https://BCing.github.io/atom.xml"/>
@@ -72,6 +72,32 @@
 <pre><code>📬 cbing7592@qq.com
 </code></pre>
 <p>😘 Enjoy~</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[ListView中item与控件抢夺焦点解决办法]]></title>
+        <id>https://BCing.github.io/post/N_Cv1ImnD/</id>
+        <link href="https://BCing.github.io/post/N_Cv1ImnD/">
+        </link>
+        <updated>2015-11-19T09:18:38.000Z</updated>
+        <summary type="html"><![CDATA[<p>ListView中item与控件抢夺焦点解决办法</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>ListView中item与控件抢夺焦点解决办法</p>
+<!-- more -->
+<ul>
+<li>1.将ListView中的Item布局中的子控件focusable属性设置为false</li>
+<li>2.在getView方法中设置button.setFocusable(false)</li>
+<li>3.设置item的根布局的属性android:descendantFocusability=&quot;blocksDescendants&quot;</li>
+</ul>
+<p>这三种方法都是为了让Button等控件不能获取焦点，从而使得item可以响应点击事件。</p>
+<p>第三种方法使用起来比较方便</p>
+<p>它是将item布局中的其他所有控件都设置为不能获取焦点</p>
+<ul>
+<li>android:descendantFocusability属性共有三个取值，分别为</li>
+<li>beforeDescendants：viewgroup会优先其子类控件而获取到焦点</li>
+<li>afterDescendants：viewgroup 只有当其子类控件不需要获取焦点时才获取焦点</li>
+<li>blocksDescendants：viewgroup 会覆盖子类控件而直接获得焦点</li>
+</ul>
 ]]></content>
     </entry>
     <entry>
