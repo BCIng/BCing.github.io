@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://BCing.github.io</id>
     <title>CBing Life</title>
-    <updated>2020-09-30T09:20:35.326Z</updated>
+    <updated>2020-10-09T06:59:53.917Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://BCing.github.io"/>
     <link rel="self" href="https://BCing.github.io/atom.xml"/>
@@ -10,6 +10,15 @@
     <logo>https://BCing.github.io/images/avatar.png</logo>
     <icon>https://BCing.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, CBing Life</rights>
+    <entry>
+        <title type="html"><![CDATA[java ]]></title>
+        <id>https://BCing.github.io/post/zPijl_-K5/</id>
+        <link href="https://BCing.github.io/post/zPijl_-K5/">
+        </link>
+        <updated>2020-10-09T06:50:18.000Z</updated>
+        <content type="html"><![CDATA[<p>java</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[life]]></title>
         <id>https://BCing.github.io/post/life/</id>

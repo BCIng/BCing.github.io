@@ -1,123 +1,121 @@
+
+<!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+<meta charset="utf-8" >
+
 <title>SlidingMenu的使用 | CBing Life</title>
-<link rel="shortcut icon" href="https://BCing.github.io/favicon.ico?v=1601457580964">
-<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<meta name="description" content="my life">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://BCing.github.io/favicon.ico?v=1602226770461">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://BCing.github.io/styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="SlidingMenu的使用 | CBing Life - Atom Feed" href="https://BCing.github.io/atom.xml">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 
 
 
-    <meta name="description" content="SlidingMenu的使用
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
 
-		SlidingMenu menu = new SlidingMenu(this);
-		// 设置滑动方向
-		menu.setMode(SlidingMenu.LEFT);
-		// 设置监听开始滑动的..." />
-    <meta name="keywords" content="Android,code" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
-    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
   </head>
   <body>
-    <div class="main">
-      <div class="main-content">
-        <div class="site-header">
-  <a href="https://BCing.github.io">
-  <img class="avatar" src="https://BCing.github.io/images/avatar.png?v=1601457580964" alt="">
-  </a>
-  <h1 class="site-title">
-    CBing Life
-  </h1>
-  <p class="site-description">
-    my life
-  </p>
-  <div class="menu-container">
-    
-      
-        <a href="/" class="menu">
-          首页
-        </a>
-      
-    
-      
-        <a href="/tag/code/" class="menu">
-          技术
-        </a>
-      
-    
-      
-        <a href="/tag/life/" class="menu">
-          生活
-        </a>
-      
-    
-      
-        <a href="/tags" class="menu">
-          标签
-        </a>
-      
-    
-      
-        <a href="/archives" class="menu">
-          归档
-        </a>
-      
-    
-      
-        <a href="/post/about" class="menu">
-          关于
-        </a>
-      
-    
-  </div>
-  <div class="social-container">
-    
-      
-        <a href="https://github.com/BCIng" target="_blank">
-          <i class="ri-github-line"></i>
-        </a>
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
+    <div id="app" class="main">
+      <div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://BCing.github.io">
+        <img class="avatar" src="https://BCing.github.io/images/avatar.png?v=1602226770461" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://BCing.github.io">
+        <h1 class="site-title">CBing Life</h1>
+      </a>
+    </div>
+    <div class="right">
+      <transition name="fade">
+        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
+      </transition>
+    </div>
   </div>
 </div>
 
+<transition name="fade">
+  <div class="menu-container" style="display: none;" v-show="menuVisible">
+    <div class="menu-list">
+      
+        
+          <a href="/" class="menu purple-link">
+            首页
+          </a>
+        
+      
+        
+          <a href="/tag/code/" class="menu purple-link">
+            技术
+          </a>
+        
+      
+        
+          <a href="/tag/life/" class="menu purple-link">
+            生活
+          </a>
+        
+      
+        
+          <a href="/tags" class="menu purple-link">
+            标签
+          </a>
+        
+      
+        
+          <a href="/archives" class="menu purple-link">
+            归档
+          </a>
+        
+      
+        
+          <a href="/post/about" class="menu purple-link">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+</transition>
+
+
+      <div class="content-container">
         <div class="post-detail">
-          <article class="post">
-            <h2 class="post-title">
-              SlidingMenu的使用
-            </h2>
-            <div class="post-info">
-              <span>
-                2015-11-16
-              </span>
-              <span>
-                2 min read
-              </span>
-              
-                <a href="https://BCing.github.io/tag/9ENwBr0DW/" class="post-tag">
-                  # Android
-                </a>
-              
-                <a href="https://BCing.github.io/tag/code/" class="post-tag">
-                  # code
-                </a>
-              
-            </div>
+          
+          <h2 class="post-title">SlidingMenu的使用</h2>
+          <div class="post-info post-detail-info">
+            <span><i class="icon-calendar-outline"></i> 2015-11-16</span>
             
-            <div class="post-content-wrapper">
-              <div class="post-content">
-                <p>SlidingMenu的使用</p>
+              <span>
+                <i class="icon-pricetags-outline"></i>
+                
+                  <a href="https://BCing.github.io/tag/9ENwBr0DW/">
+                    Android
+                    
+                      ，
+                    
+                  </a>
+                
+                  <a href="https://BCing.github.io/tag/code/">
+                    code
+                    
+                  </a>
+                
+              </span>
+            
+          </div>
+          <div class="post-content">
+            <p>SlidingMenu的使用</p>
 <!-- more -->
 <pre><code>		SlidingMenu menu = new SlidingMenu(this);
 		// 设置滑动方向
@@ -158,67 +156,49 @@ Toast.makeText(MainActivity.this,&quot;点击显示menu&quot;,Toast.LENGTH_LONG)
 
 </code></pre>
 
-              </div>
-              <div class="toc-container">
-                
-              </div>
-            </div>
-          </article>
+          </div>
         </div>
 
         
+      </div>
 
-        
+      
 
-        <div class="site-footer">
-  Powered by Gridea
-  <a class="rss" href="https://BCing.github.io/atom.xml" target="_blank">
-    <i class="ri-rss-line"></i> RSS
-  </a>
+      <div class="site-footer">
+  <div class="slogan">my life</div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  Powered by Gridea | <a class="rss" href="https://BCing.github.io/atom.xml" target="_blank">RSS</a>
 </div>
 
-      </div>
+
     </div>
+    <script type="application/javascript">
 
-    <script>
-      hljs.initHighlightingOnLoad()
+hljs.initHighlightingOnLoad()
 
-      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
 
-      // This should probably be throttled.
-      // Especially because it triggers during smooth scrolling.
-      // https://lodash.com/docs/4.17.10#throttle
-      // You could do like...
-      // window.addEventListener("scroll", () => {
-      //    _.throttle(doThatStuff, 100);
-      // });
-      // Only not doing it here to keep this Pen dependency-free.
+</script>
 
-      window.addEventListener("scroll", event => {
-        let fromTop = window.scrollY;
 
-        mainNavLinks.forEach((link, index) => {
-          let section = document.getElementById(decodeURI(link.hash).substring(1));
-          let nextSection = null
-          if (mainNavLinks[index + 1]) {
-            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
-          }
-          if (section.offsetTop <= fromTop) {
-            if (nextSection) {
-              if (nextSection.offsetTop > fromTop) {
-                link.classList.add("current");
-              } else {
-                link.classList.remove("current");    
-              }
-            } else {
-              link.classList.add("current");
-            }
-          } else {
-            link.classList.remove("current");
-          }
-        });
-      });
 
-    </script>
+
   </body>
 </html>
