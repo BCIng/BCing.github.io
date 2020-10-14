@@ -1,0 +1,271 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>android studio界面简单介绍 | CBing Life</title>
+<link rel="shortcut icon" href="https://BCing.github.io/favicon.ico?v=1602668635915">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://BCing.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="android studio界面简单介绍 | CBing Life - Atom Feed" href="https://BCing.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="android studio 界面简单介绍
+
+首先简单介绍项目的结构：
+项目结构如下图：
+
+具体信息：
+ idea：//AS生成的工程配置文件，类似Eclipse的project.properties。
+ app：//AS创建工程中的一个M..." />
+    <meta name="keywords" content="Android,code" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://BCing.github.io">
+  <img class="avatar" src="https://BCing.github.io/images/avatar.png?v=1602668635915" alt="">
+  </a>
+  <h1 class="site-title">
+    CBing Life
+  </h1>
+  <p class="site-description">
+    my life
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/tag/code/" class="menu">
+          技术
+        </a>
+      
+    
+      
+        <a href="/tag/life/" class="menu">
+          生活
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/BCIng" target="_blank">
+          <i class="ri-github-line"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              android studio界面简单介绍
+            </h2>
+            <div class="post-info">
+              <span>
+                2016-06-18
+              </span>
+              <span>
+                2 min read
+              </span>
+              
+                <a href="https://BCing.github.io/tag/9ENwBr0DW/" class="post-tag">
+                  # Android
+                </a>
+              
+                <a href="https://BCing.github.io/tag/code/" class="post-tag">
+                  # code
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>android studio 界面简单介绍</p>
+<!-- more -->
+<h2 id="首先简单介绍项目的结构">首先简单介绍项目的结构：</h2>
+<p>项目结构如下图：</p>
+<figure data-type="image" tabindex="1"><img src="https://BCing.github.io/post-images/1602668169062.jpg" alt="" loading="lazy"></figure>
+<p>具体信息：</p>
+<pre><code> idea：//AS生成的工程配置文件，类似Eclipse的project.properties。
+ app：//AS创建工程中的一个Module。
+ gradle：//构建工具系统的jar和wrapper等，jar告诉了AS如何与系统安装的gradle构建联系。
+   build：//构建目录，相当于Eclipse中默认Java工程的bin目录
+        编译生成的apk也在这个目录的outs子目录，不过在AS的工程里是默认不显示out目录的，就算有编译结果也不显示，右键打开通过文件夹直接可以看。
+    libs：//依赖包，包含jar包和jni等包。
+    src：//源码，相当于eclipse的工程。
+    main：//主文件夹 
+        java：//Java代码，包含工程和新建是默认产生的Test工程源码。 
+        res：//资源文件，类似Eclipse。
+            layout：//App布局及界面元素配置，雷同Eclipse。
+            menu：//App菜单配置，雷同Eclipse。 
+            values：//雷同Eclipse。
+                dimens.xml：//定义css的配置文件。 
+                strings.xml：//定义字符串的配置文件。 
+                styles.xml：//定义style的配置文件。
+                ......：//arrays等其他文件。
+            ......：//assets等目录
+        AndroidManifest.xml：//App基本信息（Android管理文件） 
+        ic_launcher-web.png：//App图标 
+    build.gradle：//Module的Gradle构建脚本
+</code></pre>
+<h2 id="然后介绍android-studio的主界面">然后介绍android studio的主界面</h2>
+<figure data-type="image" tabindex="2"><img src="https://BCing.github.io/post-images/1602668204529.jpg" alt="" loading="lazy"></figure>
+<h2 id="android-studio和eclipse的比较">android studio和eclipse的比较</h2>
+<p>具体说就是：</p>
+<pre><code>android studio是单工程的开发模式
+android studio中的application相当于eclipse里的workspace概念
+android studio中的module相当于eclipse里的project概念
+</code></pre>
+<h2 id="android-studio的工程根目录下的buildgradle文件">android studio的工程根目录下的build.gradle文件：</h2>
+<figure data-type="image" tabindex="3"><img src="https://BCing.github.io/post-images/1602668235962.jpg" alt="" loading="lazy"></figure>
+<h2 id="android-studio的工程根目录下的module的buildgradle文件">android studio的工程根目录下的Module的build.gradle文件</h2>
+<figure data-type="image" tabindex="4"><img src="https://BCing.github.io/post-images/1602668325054.jpg" alt="" loading="lazy"></figure>
+<h2 id="android-studio中的其他常用设置">android studio中的其他常用设置：</h2>
+<h3 id="1设置主题">1.设置主题：</h3>
+<figure data-type="image" tabindex="5"><img src="https://BCing.github.io/post-images/1602668368984.jpg" alt="" loading="lazy"></figure>
+<h3 id="2设置快捷键">2.设置快捷键</h3>
+<figure data-type="image" tabindex="6"><img src="https://BCing.github.io/post-images/1602668397094.jpg" alt="" loading="lazy"></figure>
+<h3 id="3自定义代码属性">3.自定义代码属性：</h3>
+<figure data-type="image" tabindex="7"><img src="https://BCing.github.io/post-images/1602668425540.jpg" alt="" loading="lazy"></figure>
+<h3 id="4版本控制">4.版本控制：</h3>
+<p>设置中的版本控制<br>
+<img src="https://BCing.github.io/post-images/1602668473080.jpg" alt="设置中的版本控制" loading="lazy"><br>
+工具栏中的版本控制<br>
+<img src="https://BCing.github.io/post-images/1602668507493.jpg" alt="工具栏中的版本控制" loading="lazy"></p>
+<h3 id="5选择设置模拟器">5.选择/设置模拟器</h3>
+<figure data-type="image" tabindex="8"><img src="https://BCing.github.io/post-images/1602668540210.jpg" alt="" loading="lazy"></figure>
+<h3 id="6还有其他啦啦啦啦~~~">6.还有其他，啦啦啦啦~~~</h3>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E9%A6%96%E5%85%88%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D%E9%A1%B9%E7%9B%AE%E7%9A%84%E7%BB%93%E6%9E%84">首先简单介绍项目的结构：</a></li>
+<li><a href="#%E7%84%B6%E5%90%8E%E4%BB%8B%E7%BB%8Dandroid-studio%E7%9A%84%E4%B8%BB%E7%95%8C%E9%9D%A2">然后介绍android studio的主界面</a></li>
+<li><a href="#android-studio%E5%92%8Ceclipse%E7%9A%84%E6%AF%94%E8%BE%83">android studio和eclipse的比较</a></li>
+<li><a href="#android-studio%E7%9A%84%E5%B7%A5%E7%A8%8B%E6%A0%B9%E7%9B%AE%E5%BD%95%E4%B8%8B%E7%9A%84buildgradle%E6%96%87%E4%BB%B6">android studio的工程根目录下的build.gradle文件：</a></li>
+<li><a href="#android-studio%E7%9A%84%E5%B7%A5%E7%A8%8B%E6%A0%B9%E7%9B%AE%E5%BD%95%E4%B8%8B%E7%9A%84module%E7%9A%84buildgradle%E6%96%87%E4%BB%B6">android studio的工程根目录下的Module的build.gradle文件</a></li>
+<li><a href="#android-studio%E4%B8%AD%E7%9A%84%E5%85%B6%E4%BB%96%E5%B8%B8%E7%94%A8%E8%AE%BE%E7%BD%AE">android studio中的其他常用设置：</a>
+<ul>
+<li><a href="#1%E8%AE%BE%E7%BD%AE%E4%B8%BB%E9%A2%98">1.设置主题：</a></li>
+<li><a href="#2%E8%AE%BE%E7%BD%AE%E5%BF%AB%E6%8D%B7%E9%94%AE">2.设置快捷键</a></li>
+<li><a href="#3%E8%87%AA%E5%AE%9A%E4%B9%89%E4%BB%A3%E7%A0%81%E5%B1%9E%E6%80%A7">3.自定义代码属性：</a></li>
+<li><a href="#4%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6">4.版本控制：</a></li>
+<li><a href="#5%E9%80%89%E6%8B%A9%E8%AE%BE%E7%BD%AE%E6%A8%A1%E6%8B%9F%E5%99%A8">5.选择/设置模拟器</a></li>
+<li><a href="#6%E8%BF%98%E6%9C%89%E5%85%B6%E4%BB%96%E5%95%A6%E5%95%A6%E5%95%A6%E5%95%A6~~~">6.还有其他，啦啦啦啦~~~</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://BCing.github.io/post/ycPl3_MnZ/">
+              <h3 class="post-title">
+                RxJAVA学习笔记
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by Gridea
+  <a class="rss" href="https://BCing.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
