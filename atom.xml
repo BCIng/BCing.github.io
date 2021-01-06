@@ -2,14 +2,34 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://BCing.github.io</id>
     <title>CBing Life</title>
-    <updated>2020-10-14T15:17:18.596Z</updated>
+    <updated>2021-01-06T09:32:56.080Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://BCing.github.io"/>
     <link rel="self" href="https://BCing.github.io/atom.xml"/>
     <subtitle>my life</subtitle>
     <logo>https://BCing.github.io/images/avatar.png</logo>
     <icon>https://BCing.github.io/favicon.ico</icon>
-    <rights>All rights reserved 2020, CBing Life</rights>
+    <rights>All rights reserved 2021, CBing Life</rights>
+    <entry>
+        <title type="html"><![CDATA[Java基础—什么是 Java]]></title>
+        <id>https://BCing.github.io/post/anM5sawlO/</id>
+        <link href="https://BCing.github.io/post/anM5sawlO/">
+        </link>
+        <updated>2021-01-01T08:22:07.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="什么是-java">什么是 Java</h2>
+<p>Java 是一门 **面向对象 **的高级编程语言，由Sun Microsystems 公司于 1995 年 5 月发布。<br>
+Java 可以运行于 windows、 mac OS、Linux 等多个平台。<br>
+Java 具有简单性、面向对象、分布式、健壮性、安全性、平台独立与可移植性、多线程、动态性等特点。</p>
+<h2 id="java-示例代码">Java 示例代码</h2>
+<pre><code>public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println(&quot;Hello World&quot;);
+    }
+}
+</code></pre>
+<p>注: 每个 java 程序，一定有一个  <code>main()</code> 方法作为程序的入口</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[第一次到成都]]></title>
         <id>https://BCing.github.io/post/e5dF5hKNu/</id>
@@ -1043,71 +1063,6 @@ public class TDevice {
 }
 
 </code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[android studio界面简单介绍]]></title>
-        <id>https://BCing.github.io/post/ztwvGkQ7d/</id>
-        <link href="https://BCing.github.io/post/ztwvGkQ7d/">
-        </link>
-        <updated>2016-06-18T09:34:54.000Z</updated>
-        <summary type="html"><![CDATA[<p>android studio 界面简单介绍</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>android studio 界面简单介绍</p>
-<!-- more -->
-<h2 id="首先简单介绍项目的结构">首先简单介绍项目的结构：</h2>
-<p>项目结构如下图：</p>
-<figure data-type="image" tabindex="1"><img src="https://BCing.github.io/post-images/1602668169062.jpg" alt="" loading="lazy"></figure>
-<p>具体信息：</p>
-<pre><code> idea：//AS生成的工程配置文件，类似Eclipse的project.properties。
- app：//AS创建工程中的一个Module。
- gradle：//构建工具系统的jar和wrapper等，jar告诉了AS如何与系统安装的gradle构建联系。
-   build：//构建目录，相当于Eclipse中默认Java工程的bin目录
-        编译生成的apk也在这个目录的outs子目录，不过在AS的工程里是默认不显示out目录的，就算有编译结果也不显示，右键打开通过文件夹直接可以看。
-    libs：//依赖包，包含jar包和jni等包。
-    src：//源码，相当于eclipse的工程。
-    main：//主文件夹 
-        java：//Java代码，包含工程和新建是默认产生的Test工程源码。 
-        res：//资源文件，类似Eclipse。
-            layout：//App布局及界面元素配置，雷同Eclipse。
-            menu：//App菜单配置，雷同Eclipse。 
-            values：//雷同Eclipse。
-                dimens.xml：//定义css的配置文件。 
-                strings.xml：//定义字符串的配置文件。 
-                styles.xml：//定义style的配置文件。
-                ......：//arrays等其他文件。
-            ......：//assets等目录
-        AndroidManifest.xml：//App基本信息（Android管理文件） 
-        ic_launcher-web.png：//App图标 
-    build.gradle：//Module的Gradle构建脚本
-</code></pre>
-<h2 id="然后介绍android-studio的主界面">然后介绍android studio的主界面</h2>
-<figure data-type="image" tabindex="2"><img src="https://BCing.github.io/post-images/1602668204529.jpg" alt="" loading="lazy"></figure>
-<h2 id="android-studio和eclipse的比较">android studio和eclipse的比较</h2>
-<p>具体说就是：</p>
-<pre><code>android studio是单工程的开发模式
-android studio中的application相当于eclipse里的workspace概念
-android studio中的module相当于eclipse里的project概念
-</code></pre>
-<h2 id="android-studio的工程根目录下的buildgradle文件">android studio的工程根目录下的build.gradle文件：</h2>
-<figure data-type="image" tabindex="3"><img src="https://BCing.github.io/post-images/1602668235962.jpg" alt="" loading="lazy"></figure>
-<h2 id="android-studio的工程根目录下的module的buildgradle文件">android studio的工程根目录下的Module的build.gradle文件</h2>
-<figure data-type="image" tabindex="4"><img src="https://BCing.github.io/post-images/1602668325054.jpg" alt="" loading="lazy"></figure>
-<h2 id="android-studio中的其他常用设置">android studio中的其他常用设置：</h2>
-<h3 id="1设置主题">1.设置主题：</h3>
-<figure data-type="image" tabindex="5"><img src="https://BCing.github.io/post-images/1602668368984.jpg" alt="" loading="lazy"></figure>
-<h3 id="2设置快捷键">2.设置快捷键</h3>
-<figure data-type="image" tabindex="6"><img src="https://BCing.github.io/post-images/1602668397094.jpg" alt="" loading="lazy"></figure>
-<h3 id="3自定义代码属性">3.自定义代码属性：</h3>
-<figure data-type="image" tabindex="7"><img src="https://BCing.github.io/post-images/1602668425540.jpg" alt="" loading="lazy"></figure>
-<h3 id="4版本控制">4.版本控制：</h3>
-<p>设置中的版本控制<br>
-<img src="https://BCing.github.io/post-images/1602668473080.jpg" alt="设置中的版本控制" loading="lazy"><br>
-工具栏中的版本控制<br>
-<img src="https://BCing.github.io/post-images/1602668507493.jpg" alt="工具栏中的版本控制" loading="lazy"></p>
-<h3 id="5选择设置模拟器">5.选择/设置模拟器</h3>
-<figure data-type="image" tabindex="8"><img src="https://BCing.github.io/post-images/1602668540210.jpg" alt="" loading="lazy"></figure>
-<h3 id="6还有其他啦啦啦啦~~~">6.还有其他，啦啦啦啦~~~</h3>
 ]]></content>
     </entry>
 </feed>
