@@ -1,0 +1,272 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Android模拟屏幕点击 | CBing Life</title>
+<link rel="shortcut icon" href="https://BCing.github.io/favicon.ico?v=1614054633677">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://BCing.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="Android模拟屏幕点击 | CBing Life - Atom Feed" href="https://BCing.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="Android模拟屏幕点击
+在Android开发中如果要使用 模拟点击等操作，一般是需要使用 adb 命令。但是如果使用 adb ，需要开启手机开发者模式，用数据线连接电脑。然后在电脑上发送 adb 命令。这样操作太麻烦，有没有什么办法能直..." />
+    <meta name="keywords" content="java,Android,code" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://BCing.github.io">
+  <img class="avatar" src="https://BCing.github.io/images/avatar.png?v=1614054633677" alt="">
+  </a>
+  <h1 class="site-title">
+    CBing Life
+  </h1>
+  <p class="site-description">
+    my life
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/tag/code/" class="menu">
+          技术
+        </a>
+      
+    
+      
+        <a href="/tag/life/" class="menu">
+          生活
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/BCIng" target="_blank">
+          <i class="ri-github-line"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              Android模拟屏幕点击
+            </h2>
+            <div class="post-info">
+              <span>
+                2021-02-22
+              </span>
+              <span>
+                3 min read
+              </span>
+              
+                <a href="https://BCing.github.io/tag/TXr5HDYIR/" class="post-tag">
+                  # java
+                </a>
+              
+                <a href="https://BCing.github.io/tag/9ENwBr0DW/" class="post-tag">
+                  # Android
+                </a>
+              
+                <a href="https://BCing.github.io/tag/code/" class="post-tag">
+                  # code
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="https://BCing.github.io/post-images/PE7cZQfdU.png" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h3 id="android模拟屏幕点击">Android模拟屏幕点击</h3>
+<p>在Android开发中如果要使用 模拟点击等操作，一般是需要使用 adb 命令。但是如果使用 adb ，需要开启手机开发者模式，用数据线连接电脑。然后在电脑上发送 adb 命令。这样操作太麻烦，有没有什么办法能直接在手机上，自己模拟 adb 命令。</p>
+<h3 id="使用-processbuilder">使用 ProcessBuilder</h3>
+<p>ProcessBuilder 文档地址   <a href="https://developer.android.google.cn/reference/java/lang/ProcessBuilder?hl=zh-cn">https://developer.android.google.cn/reference/java/lang/ProcessBuilder?hl=zh-cn</a></p>
+<h4 id="processbuilder-的用途">ProcessBuilder 的用途</h4>
+<p>管理着一系列关于一个进程的属性，并且可以通过这些属性创建一个系统进程（Java Process的子进程）</p>
+<h4 id="processbuilder-管理的属性">ProcessBuilder 管理的属性</h4>
+<ol>
+<li>command, 指向着一系列可能会被执行的外部文件，和一系列取决于所处系统的操作系统命令</li>
+<li>environment, 取决于所处系统的环境变量，起始值当前进程的环境变量拷贝</li>
+<li>working directory, 默认值是该进程的工作目录。</li>
+<li>standard input、standard output、standout error,指向该进程的各种流，可以通过Process类下的相应方法获得</li>
+<li>redirectErrorStream, 用来指示该进程的standard output和error output是否输出到同一个地方</li>
+</ol>
+<h4 id="注意事项">注意事项</h4>
+<p>由于该类没有使用同步锁，因此在多线程情况使用时需要手动在外部使用同步锁的操作</p>
+<h3 id="process">Process</h3>
+<h4 id="1-process-类是什么">1. Process 类是什么？</h4>
+<ol>
+<li>Process 本身是一个抽象类，就其本身来说代表着对一个进程的操作控制，同时拥有着关于这个进程的一些信息。</li>
+<li>由ProcessBuilder.start() 和 Runtime.exec() 创建一个Process的子类对象，通过该对象进行操作。</li>
+</ol>
+<h4 id="2-process-类能够对进程进行哪些操作">2. Process 类能够对进程进行哪些操作？</h4>
+<ol>
+<li>获取进程的输入输出流</li>
+<li>查看进程的退出状态</li>
+<li>杀死进程</li>
+<li>等待进程执行的完成</li>
+</ol>
+<h3 id="模拟点击示例">模拟点击示例</h3>
+<p>java</p>
+<pre><code>// adb shell tap x y
+    private  void  Tap(int x,int y){
+        String[] order = {&quot;input&quot;, &quot;tap&quot;, &quot;&quot;+x, &quot;&quot;+y};
+        try {
+            new ProcessBuilder(order).start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+</code></pre>
+<p>kotlin</p>
+<pre><code>// adb shell tap x y 
+private fun click(x:Int,y:Int) {
+        val order = listOf(&quot;input&quot;,
+                &quot;tap&quot;,
+                &quot;&quot; + x,
+                &quot;&quot; + y)
+        ProcessBuilder(order).start()
+ }
+</code></pre>
+<p>也可以执行其他 类似于 adb 的命令</p>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#android%E6%A8%A1%E6%8B%9F%E5%B1%8F%E5%B9%95%E7%82%B9%E5%87%BB">Android模拟屏幕点击</a></li>
+<li><a href="#%E4%BD%BF%E7%94%A8-processbuilder">使用 ProcessBuilder</a>
+<ul>
+<li><a href="#processbuilder-%E7%9A%84%E7%94%A8%E9%80%94">ProcessBuilder 的用途</a></li>
+<li><a href="#processbuilder-%E7%AE%A1%E7%90%86%E7%9A%84%E5%B1%9E%E6%80%A7">ProcessBuilder 管理的属性</a></li>
+<li><a href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9">注意事项</a></li>
+</ul>
+</li>
+<li><a href="#process">Process</a>
+<ul>
+<li><a href="#1-process-%E7%B1%BB%E6%98%AF%E4%BB%80%E4%B9%88">1. Process 类是什么？</a></li>
+<li><a href="#2-process-%E7%B1%BB%E8%83%BD%E5%A4%9F%E5%AF%B9%E8%BF%9B%E7%A8%8B%E8%BF%9B%E8%A1%8C%E5%93%AA%E4%BA%9B%E6%93%8D%E4%BD%9C">2. Process 类能够对进程进行哪些操作？</a></li>
+</ul>
+</li>
+<li><a href="#%E6%A8%A1%E6%8B%9F%E7%82%B9%E5%87%BB%E7%A4%BA%E4%BE%8B">模拟点击示例</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://BCing.github.io/post/51psYWVs8/">
+              <h3 class="post-title">
+                《巨人的陨落》--读书笔记
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by Gridea
+  <a class="rss" href="https://BCing.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://BCing.github.io</id>
     <title>CBing Life</title>
-    <updated>2021-01-07T07:44:40.235Z</updated>
+    <updated>2021-02-23T04:31:24.139Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://BCing.github.io"/>
     <link rel="self" href="https://BCing.github.io/atom.xml"/>
@@ -10,6 +10,78 @@
     <logo>https://BCing.github.io/images/avatar.png</logo>
     <icon>https://BCing.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, CBing Life</rights>
+    <entry>
+        <title type="html"><![CDATA[Android模拟屏幕点击]]></title>
+        <id>https://BCing.github.io/post/PE7cZQfdU/</id>
+        <link href="https://BCing.github.io/post/PE7cZQfdU/">
+        </link>
+        <updated>2021-02-22T04:14:25.000Z</updated>
+        <content type="html"><![CDATA[<h3 id="android模拟屏幕点击">Android模拟屏幕点击</h3>
+<p>在Android开发中如果要使用 模拟点击等操作，一般是需要使用 adb 命令。但是如果使用 adb ，需要开启手机开发者模式，用数据线连接电脑。然后在电脑上发送 adb 命令。这样操作太麻烦，有没有什么办法能直接在手机上，自己模拟 adb 命令。</p>
+<h3 id="使用-processbuilder">使用 ProcessBuilder</h3>
+<p>ProcessBuilder 文档地址   <a href="https://developer.android.google.cn/reference/java/lang/ProcessBuilder?hl=zh-cn">https://developer.android.google.cn/reference/java/lang/ProcessBuilder?hl=zh-cn</a></p>
+<h4 id="processbuilder-的用途">ProcessBuilder 的用途</h4>
+<p>管理着一系列关于一个进程的属性，并且可以通过这些属性创建一个系统进程（Java Process的子进程）</p>
+<h4 id="processbuilder-管理的属性">ProcessBuilder 管理的属性</h4>
+<ol>
+<li>command, 指向着一系列可能会被执行的外部文件，和一系列取决于所处系统的操作系统命令</li>
+<li>environment, 取决于所处系统的环境变量，起始值当前进程的环境变量拷贝</li>
+<li>working directory, 默认值是该进程的工作目录。</li>
+<li>standard input、standard output、standout error,指向该进程的各种流，可以通过Process类下的相应方法获得</li>
+<li>redirectErrorStream, 用来指示该进程的standard output和error output是否输出到同一个地方</li>
+</ol>
+<h4 id="注意事项">注意事项</h4>
+<p>由于该类没有使用同步锁，因此在多线程情况使用时需要手动在外部使用同步锁的操作</p>
+<h3 id="process">Process</h3>
+<h4 id="1-process-类是什么">1. Process 类是什么？</h4>
+<ol>
+<li>Process 本身是一个抽象类，就其本身来说代表着对一个进程的操作控制，同时拥有着关于这个进程的一些信息。</li>
+<li>由ProcessBuilder.start() 和 Runtime.exec() 创建一个Process的子类对象，通过该对象进行操作。</li>
+</ol>
+<h4 id="2-process-类能够对进程进行哪些操作">2. Process 类能够对进程进行哪些操作？</h4>
+<ol>
+<li>获取进程的输入输出流</li>
+<li>查看进程的退出状态</li>
+<li>杀死进程</li>
+<li>等待进程执行的完成</li>
+</ol>
+<h3 id="模拟点击示例">模拟点击示例</h3>
+<p>java</p>
+<pre><code>// adb shell tap x y
+    private  void  Tap(int x,int y){
+        String[] order = {&quot;input&quot;, &quot;tap&quot;, &quot;&quot;+x, &quot;&quot;+y};
+        try {
+            new ProcessBuilder(order).start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+</code></pre>
+<p>kotlin</p>
+<pre><code>// adb shell tap x y 
+private fun click(x:Int,y:Int) {
+        val order = listOf(&quot;input&quot;,
+                &quot;tap&quot;,
+                &quot;&quot; + x,
+                &quot;&quot; + y)
+        ProcessBuilder(order).start()
+ }
+</code></pre>
+<p>也可以执行其他 类似于 adb 的命令</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[《巨人的陨落》--读书笔记]]></title>
+        <id>https://BCing.github.io/post/51psYWVs8/</id>
+        <link href="https://BCing.github.io/post/51psYWVs8/">
+        </link>
+        <updated>2021-01-11T05:17:19.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="书籍简介">书籍简介</h1>
+<h1 id="故事发展主要情节">故事发展主要情节</h1>
+<h1 id="结局">结局</h1>
+<h1 id="感悟">感悟</h1>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Java 基础四 —基本数据类型]]></title>
         <id>https://BCing.github.io/post/1rYD1mxN4/</id>
@@ -118,24 +190,6 @@ Java 具有简单性、面向对象、分布式、健壮性、安全性、平台
         </link>
         <updated>2020-10-09T06:50:18.000Z</updated>
         <content type="html"><![CDATA[<p>java</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[life]]></title>
-        <id>https://BCing.github.io/post/life/</id>
-        <link href="https://BCing.github.io/post/life/">
-        </link>
-        <updated>2020-09-29T04:16:58.000Z</updated>
-        <content type="html"><![CDATA[<p>life</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Android 基础]]></title>
-        <id>https://BCing.github.io/post/android-ji-chu/</id>
-        <link href="https://BCing.github.io/post/android-ji-chu/">
-        </link>
-        <updated>2020-09-29T03:47:35.000Z</updated>
-        <content type="html"><![CDATA[<p>Android 基础</p>
 ]]></content>
     </entry>
 </feed>
