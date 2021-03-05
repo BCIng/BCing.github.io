@@ -3,7 +3,7 @@
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Android模拟屏幕点击 | CBing Life</title>
-<link rel="shortcut icon" href="https://BCing.github.io/favicon.ico?v=1614840173499">
+<link rel="shortcut icon" href="https://BCing.github.io/favicon.ico?v=1614921924126">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://BCing.github.io/styles/main.css">
 <link rel="alternate" type="application/atom+xml" title="Android模拟屏幕点击 | CBing Life - Atom Feed" href="https://BCing.github.io/atom.xml">
@@ -22,7 +22,7 @@
       <div class="main-content">
         <div class="site-header">
   <a href="https://BCing.github.io">
-  <img class="avatar" src="https://BCing.github.io/images/avatar.png?v=1614840173499" alt="">
+  <img class="avatar" src="https://BCing.github.io/images/avatar.png?v=1614921924126" alt="">
   </a>
   <h1 class="site-title">
     CBing Life
@@ -98,7 +98,7 @@
                 2021-02-22
               </span>
               <span>
-                3 min read
+                4 min read
               </span>
               
                 <a href="https://BCing.github.io/tag/TXr5HDYIR/" class="post-tag">
@@ -171,6 +171,82 @@ private fun click(x:Int,y:Int) {
  }
 </code></pre>
 <p>也可以执行其他 类似于 adb 的命令</p>
+<p>封装  ShellUtils.java</p>
+<pre><code>public class ShellUtils {
+
+    private static ProcessBuilder processBuilder = new ProcessBuilder();
+
+    public static Process exec(String[] commend) {
+        Process process = null;
+        try {
+//            String[] commends = new String[commend.size()];
+//            commend.toArray(commends);
+            processBuilder.command(commend);
+            process = processBuilder.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return process;
+    }
+
+
+    public static String getOutput(Process process) {
+        String output = null;
+        BufferedReader reader = null;
+        try {
+            if (process != null) {
+                StringBuffer stringBuffer = new StringBuffer();
+                reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+                while (reader.read() != -1){
+                    stringBuffer.append(&quot;\n&quot; + reader.readLine());
+                }
+                output = stringBuffer.toString();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        closeQuietly(reader);
+        return output;
+    }
+
+    public static String getError(Process process) {
+        String errput = null;
+        BufferedReader reader = null;
+        try {
+            if (process != null) {
+                StringBuffer stringBuffer = new StringBuffer();
+                reader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+                while (reader.read() != -1){
+                    stringBuffer.append(&quot;\n&quot; + reader.readLine());
+                }
+                errput = stringBuffer.toString();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        closeQuietly(reader);
+        return errput;
+    }
+
+    public static void closeQuietly(Reader reader) {
+        try {
+            if (reader != null) {
+                reader.close();
+            }
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public static void destroy(Process process) {
+        if (process != null) {
+            process.destroyForcibly();
+        }
+    }
+}
+
+</code></pre>
 
               </div>
               <div class="toc-container">

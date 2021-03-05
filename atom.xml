@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://BCing.github.io</id>
     <title>CBing Life</title>
-    <updated>2021-03-04T06:42:58.431Z</updated>
+    <updated>2021-03-05T05:25:26.325Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://BCing.github.io"/>
     <link rel="self" href="https://BCing.github.io/atom.xml"/>
@@ -97,6 +97,82 @@ private fun click(x:Int,y:Int) {
  }
 </code></pre>
 <p>也可以执行其他 类似于 adb 的命令</p>
+<p>封装  ShellUtils.java</p>
+<pre><code>public class ShellUtils {
+
+    private static ProcessBuilder processBuilder = new ProcessBuilder();
+
+    public static Process exec(String[] commend) {
+        Process process = null;
+        try {
+//            String[] commends = new String[commend.size()];
+//            commend.toArray(commends);
+            processBuilder.command(commend);
+            process = processBuilder.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return process;
+    }
+
+
+    public static String getOutput(Process process) {
+        String output = null;
+        BufferedReader reader = null;
+        try {
+            if (process != null) {
+                StringBuffer stringBuffer = new StringBuffer();
+                reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+                while (reader.read() != -1){
+                    stringBuffer.append(&quot;\n&quot; + reader.readLine());
+                }
+                output = stringBuffer.toString();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        closeQuietly(reader);
+        return output;
+    }
+
+    public static String getError(Process process) {
+        String errput = null;
+        BufferedReader reader = null;
+        try {
+            if (process != null) {
+                StringBuffer stringBuffer = new StringBuffer();
+                reader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+                while (reader.read() != -1){
+                    stringBuffer.append(&quot;\n&quot; + reader.readLine());
+                }
+                errput = stringBuffer.toString();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        closeQuietly(reader);
+        return errput;
+    }
+
+    public static void closeQuietly(Reader reader) {
+        try {
+            if (reader != null) {
+                reader.close();
+            }
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public static void destroy(Process process) {
+        if (process != null) {
+            process.destroyForcibly();
+        }
+    }
+}
+
+</code></pre>
 ]]></content>
     </entry>
     <entry>
