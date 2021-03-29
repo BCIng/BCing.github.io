@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://BCing.github.io</id>
     <title>CBing Life</title>
-    <updated>2021-03-05T05:25:57.668Z</updated>
+    <updated>2021-03-29T06:08:25.510Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://BCing.github.io"/>
     <link rel="self" href="https://BCing.github.io/atom.xml"/>
@@ -10,6 +10,27 @@
     <logo>https://BCing.github.io/images/avatar.png</logo>
     <icon>https://BCing.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, CBing Life</rights>
+    <entry>
+        <title type="html"><![CDATA[pyinstaller 打包 humanize 报错 解决]]></title>
+        <id>https://BCing.github.io/post/ypaEwaCJi/</id>
+        <link href="https://BCing.github.io/post/ypaEwaCJi/">
+        </link>
+        <updated>2021-03-29T05:59:47.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="问题描述">问题描述</h2>
+<p>在使用 pyinstaller 打包包含 humanize 的 python 项目的时候， 出现下面的错误</p>
+<pre><code>
+pkg_resources.DistributionNotFound: The 'humanize' distribution was not found and is required by the application
+</code></pre>
+<p>大概是 humanize 这个  没有被打包进去</p>
+<h2 id="解决办法">解决办法</h2>
+<p>在打包的 python 文件的同级目录，创建一个  hook-humanize.py 文件 ,在这个文件中添加如下代码</p>
+<pre><code>from PyInstaller.utils.hooks import copy_metadata
+
+datas = copy_metadata('humanize')
+</code></pre>
+<p>使用命令  <code>pyinstaller -F -c --additional-hooks-dir=./ main.py</code> 进行打包， 这里需要注意，一定要添加   <strong>--additional-hooks-dir=./</strong></p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[《巨人的陨落》--读书笔记]]></title>
         <id>https://BCing.github.io/post/51psYWVs8/</id>
@@ -274,15 +295,6 @@ Java 具有简单性、面向对象、分布式、健壮性、安全性、平台
 </ol>
 <p>今天微博上还有一句话 <code>我们的这辈子，就是我们上一辈子说的下一辈子</code>。所以啊。好好的感受生活。毕竟是上一世对这辈子最美好的期待。<br>
 加油~~~</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[java ]]></title>
-        <id>https://BCing.github.io/post/zPijl_-K5/</id>
-        <link href="https://BCing.github.io/post/zPijl_-K5/">
-        </link>
-        <updated>2020-10-09T06:50:18.000Z</updated>
-        <content type="html"><![CDATA[<p>java</p>
 ]]></content>
     </entry>
 </feed>

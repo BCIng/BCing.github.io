@@ -2,18 +2,20 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Java 基础二 —— Java 环境搭建 | CBing Life</title>
+<title>pyinstaller 打包 humanize 报错 解决 | CBing Life</title>
 <link rel="shortcut icon" href="https://BCing.github.io/favicon.ico?v=1616998090989">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://BCing.github.io/styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="Java 基础二 —— Java 环境搭建 | CBing Life - Atom Feed" href="https://BCing.github.io/atom.xml">
+<link rel="alternate" type="application/atom+xml" title="pyinstaller 打包 humanize 报错 解决 | CBing Life - Atom Feed" href="https://BCing.github.io/atom.xml">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 
 
 
-    <meta name="description" content="JDK 安装
-" />
-    <meta name="keywords" content="java,code" />
+    <meta name="description" content="问题描述
+在使用 pyinstaller 打包包含 humanize 的 python 项目的时候， 出现下面的错误
+
+pkg_resources.DistributionNotFound: The 'humanize' distribut..." />
+    <meta name="keywords" content="python,code" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
     <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
   </head>
@@ -91,18 +93,18 @@
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              Java 基础二 —— Java 环境搭建
+              pyinstaller 打包 humanize 报错 解决
             </h2>
             <div class="post-info">
               <span>
-                2021-01-02
+                2021-03-29
               </span>
               <span>
                 1 min read
               </span>
               
-                <a href="https://BCing.github.io/tag/TXr5HDYIR/" class="post-tag">
-                  # java
+                <a href="https://BCing.github.io/tag/9WixgbSu7/" class="post-tag">
+                  # python
                 </a>
               
                 <a href="https://BCing.github.io/tag/code/" class="post-tag">
@@ -111,18 +113,31 @@
               
             </div>
             
-              <img class="post-feature-image" src="https://BCing.github.io/post-images/WbS-gpQ3J.jpg" alt="">
+              <img class="post-feature-image" src="https://BCing.github.io/post-images/ypaEwaCJi.jpg" alt="">
             
             <div class="post-content-wrapper">
               <div class="post-content">
-                <h2 id="jdk-安装">JDK 安装</h2>
+                <h2 id="问题描述">问题描述</h2>
+<p>在使用 pyinstaller 打包包含 humanize 的 python 项目的时候， 出现下面的错误</p>
+<pre><code>
+pkg_resources.DistributionNotFound: The 'humanize' distribution was not found and is required by the application
+</code></pre>
+<p>大概是 humanize 这个  没有被打包进去</p>
+<h2 id="解决办法">解决办法</h2>
+<p>在打包的 python 文件的同级目录，创建一个  hook-humanize.py 文件 ,在这个文件中添加如下代码</p>
+<pre><code>from PyInstaller.utils.hooks import copy_metadata
+
+datas = copy_metadata('humanize')
+</code></pre>
+<p>使用命令  <code>pyinstaller -F -c --additional-hooks-dir=./ main.py</code> 进行打包， 这里需要注意，一定要添加   <strong>--additional-hooks-dir=./</strong></p>
 
               </div>
               <div class="toc-container">
                 <ul class="markdownIt-TOC">
 <li>
 <ul>
-<li><a href="#jdk-%E5%AE%89%E8%A3%85">JDK 安装</a></li>
+<li><a href="#%E9%97%AE%E9%A2%98%E6%8F%8F%E8%BF%B0">问题描述</a></li>
+<li><a href="#%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95">解决办法</a></li>
 </ul>
 </li>
 </ul>
@@ -135,9 +150,9 @@
         
           <div class="next-post">
             <div class="next">下一篇</div>
-            <a href="https://BCing.github.io/post/anM5sawlO/">
+            <a href="https://BCing.github.io/post/51psYWVs8/">
               <h3 class="post-title">
-                Java 基础一  —— 什么是 Java
+                《巨人的陨落》--读书笔记
               </h3>
             </a>
           </div>
