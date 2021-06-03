@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://BCing.github.io</id>
     <title>CBing Life</title>
-    <updated>2021-03-29T06:22:49.773Z</updated>
+    <updated>2021-06-03T08:14:31.762Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://BCing.github.io"/>
     <link rel="self" href="https://BCing.github.io/atom.xml"/>
@@ -10,6 +10,44 @@
     <logo>https://BCing.github.io/images/avatar.png</logo>
     <icon>https://BCing.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, CBing Life</rights>
+    <entry>
+        <title type="html"><![CDATA[浏览器控制台 console 无法打印问题]]></title>
+        <id>https://BCing.github.io/post/ZRmDwlQcZ/</id>
+        <link href="https://BCing.github.io/post/ZRmDwlQcZ/">
+        </link>
+        <updated>2021-06-03T08:00:53.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="问题描述">问题描述</h2>
+<p>通常我们在调试前端的过程中，都会在浏览器控制台中打印日志，一般是使用 <strong>console.log()</strong>。但是如果网页把console.log(),重写了，让其无法打印任何东西，就会出现下面的情况，无论打印什么都是 undefind。</p>
+<pre><code>console.log('Hello World')
+// undefined
+</code></pre>
+<h2 id="查看原因">查看原因</h2>
+<p>查看  console.log,返回   ƒ (){}</p>
+<pre><code>console.log
+ƒ (){}
+</code></pre>
+<p>这个说明 console.log 方法被重写了，不打印任何东西,不然则会返回下面的内容</p>
+<pre><code>console.log
+ƒ log() { [native code] }
+</code></pre>
+<p>一般重写console.log 的方法如下</p>
+<pre><code>var console = {};
+console.log = function(){};
+console.info = function(){};
+window.console = console;
+</code></pre>
+<h2 id="解决办法">解决办法</h2>
+<p>在 网页中重新注入一个 console 。但是由于无法直接修改已经存在的 网页，我们可以增加一个 <strong>iframe</strong>, 在里面增加一个  console</p>
+<pre><code>(function(){
+　　var iframe = document.createElement('iframe')
+　　document.body.appendChild(iframe)
+　　window.console = iframe.contentWindow.console
+}())
+
+</code></pre>
+<p>但是这个办法也只能临时解决无法打印日志的问题，最根本的是需要前端去掉 重写的  console.log 。在发布以后再增加.</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[pyinstaller 打包 humanize 报错 解决]]></title>
         <id>https://BCing.github.io/post/ypaEwaCJi/</id>
@@ -267,34 +305,6 @@ Java 具有简单性、面向对象、分布式、健壮性、安全性、平台
 ]]></summary>
         <content type="html"><![CDATA[<p>武功山风景</p>
 <!-- more -->
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[我们不过是在平凡的世界里的一颗沙砾]]></title>
-        <id>https://BCing.github.io/post/x15tuHFAL/</id>
-        <link href="https://BCing.github.io/post/x15tuHFAL/">
-        </link>
-        <updated>2020-10-14T09:14:16.000Z</updated>
-        <summary type="html"><![CDATA[<p>好好活着</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>好好活着</p>
-<!-- more -->
-<p>今天刷微博看到看到了大连理工一同学的 <code>遗言</code>，<br>
-<img src="https://BCing.github.io/post-images/1602686427369.jpg" alt="" loading="lazy"></p>
-<p>整篇没有任何的抱怨和对这个世界的不满，用开着玩笑，留下祝福的语气离开了这个世界，对他来说，这也许是最好的结局了吧，同学，希望你下辈子成为最幸福的猫咪，每天晒晒太阳，慵懒的伸伸腰。</p>
-<p>在这个社会，一出生就寄托了许多人的希望，父母长辈，老师朋友，总是在不断的告诉你应该怎样怎样。但是我们不过是茫茫世界上的一粒沙砾，并没有那么大的能力。所以我们只要做到力所能及的事情就行了，人生很短，过自己想要的生活。 要学会承认自己的平庸，承认自己的不完美，自己的自私。然后做好自己的事情，自己喜欢的事情就行了。就像毛不易在 《像我这样的人》 中唱的一样，虽然歌词每一句都是在反问为什么，但是这何尝不是在承认自己的平庸，和大多数人一样，我们都是茫茫人海中最平凡的一颗沙砾。所以不要给自己太大的目标。完不成的事情，就放弃吧，也许会在沙漠中找到一处其他的绿洲。也一定会有属于自己的的那一片绿色。</p>
-<p>最近这段时间也是压力有点大，与其说压力大，不如说有点迷茫，不知道未来的路了，目之所及处，皆是浓雾。不管是对于感情还是对于职业规划。亦或是学业。都有点不知所措了。 可能是一个人呆太久了原因，希望自己能够赶紧调整过来，好好的规划。尽快完成下面的几点吧</p>
-<ol>
-<li>把驾照考了</li>
-<li>重新捡回 java，怎么也得精通吧</li>
-<li>如果有可能，还是想要去考个研</li>
-<li>在找找机会，学习一下其他的东西，俗话说： 技多不压身</li>
-<li>多锻炼身体</li>
-<li>如果有可能，遇到一个能互相倾述的人</li>
-<li>认真的生活</li>
-</ol>
-<p>今天微博上还有一句话 <code>我们的这辈子，就是我们上一辈子说的下一辈子</code>。所以啊。好好的感受生活。毕竟是上一世对这辈子最美好的期待。<br>
-加油~~~</p>
 ]]></content>
     </entry>
 </feed>
