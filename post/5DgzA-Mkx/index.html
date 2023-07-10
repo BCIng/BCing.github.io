@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>python 实现信号槽 | CBing 小站</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://BCing.github.io/favicon.ico?v=1688982863407">
+<link rel="stylesheet" href="https://BCing.github.io/styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="#coding:utf-8
+from collections import deque
+from threading import Lock
+class MySignal(object):
+
+    def __init__(self):
+..." />
+    <meta name="keywords" content="" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://BCing.github.io">
+        <img src="https://BCing.github.io/images/avatar.png?v=1688982863407" class="site-logo">
+        <h1 class="site-title">CBing 小站</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/tag/code/" class="site-nav">
+            技术
+          </a>
+        
+      
+        
+          <a href="/tag/life/" class="site-nav">
+            生活
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      CBing 小站
+    </div>
+    <div class="site-footer">
+       | <a class="rss" href="https://BCing.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">python 实现信号槽</h2>
+            <div class="post-date">2022-02-22</div>
+            
+              <div class="feature-container" style="background-image: url('https://BCing.github.io/post-images/5DgzA-Mkx.jpg')">
+              </div>
+            
+            <div class="post-content" v-pre>
+              <pre><code>#coding:utf-8
+from collections import deque
+from threading import Lock
+class MySignal(object):
+
+    def __init__(self):
+        self.collection = deque()
+        self.lock = Lock()
+
+    def connect(self, fun):
+        if fun not in self.collection:
+            self.collection.append(fun)
+
+    def emit(self, *args, **kwargs):
+        self.lock.acquire()
+        for fun in set(self.collection):
+            fun(*args, **kwargs)
+        self.lock.release()
+
+class MyTypeSignal(object):
+    sendmsg = MySignal()#实例化
+
+    def run(self):
+        pass
+        # self.sendmsg.emit('send')#发送
+
+class MyTypeSlot(object):
+
+    def get(self, msg):#槽对象里的槽函数
+        print( 'My slot get msg', msg)
+    
+def wsResult(msg):
+    print(&quot;=========&quot;)
+    print(msg)
+
+if __name__ == &quot;__main__&quot;:
+
+    send = MyTypeSignal()
+    slot = MyTypeSlot()
+    send.sendmsg.connect(wsResult)#链接信号槽
+    send.run()
+    send.sendmsg.emit('hello whorhd')
+    # send.sendmsg.emit('aaaa')
+    # send.sendmsg.emit('aaaa')
+    # slot.get(&quot;asa&quot;)
+     
+</code></pre>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://BCing.github.io/post/JEoMlj7xH/">
+                  <h3 class="post-title">
+                    uiautomator2 滑动
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+
+
+  </body>
+</html>

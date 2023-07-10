@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>浏览器控制台 console 无法打印问题 | CBing 小站</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://BCing.github.io/favicon.ico?v=1688982863407">
+<link rel="stylesheet" href="https://BCing.github.io/styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="问题描述
+通常我们在调试前端的过程中，都会在浏览器控制台中打印日志，一般是使用 console.log()。但是如果网页把console.log(),重写了，让其无法打印任何东西，就会出现下面的情况，无论打印什么都是 undefind。
+c..." />
+    <meta name="keywords" content="前端,js,code" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://BCing.github.io">
+        <img src="https://BCing.github.io/images/avatar.png?v=1688982863407" class="site-logo">
+        <h1 class="site-title">CBing 小站</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/tag/code/" class="site-nav">
+            技术
+          </a>
+        
+      
+        
+          <a href="/tag/life/" class="site-nav">
+            生活
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      CBing 小站
+    </div>
+    <div class="site-footer">
+       | <a class="rss" href="https://BCing.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">浏览器控制台 console 无法打印问题</h2>
+            <div class="post-date">2021-06-03</div>
+            
+            <div class="post-content" v-pre>
+              <h2 id="问题描述">问题描述</h2>
+<p>通常我们在调试前端的过程中，都会在浏览器控制台中打印日志，一般是使用 <strong>console.log()</strong>。但是如果网页把console.log(),重写了，让其无法打印任何东西，就会出现下面的情况，无论打印什么都是 undefind。</p>
+<pre><code>console.log('Hello World')
+// undefined
+</code></pre>
+<h2 id="查看原因">查看原因</h2>
+<p>查看  console.log,返回   ƒ (){}</p>
+<pre><code>console.log
+ƒ (){}
+</code></pre>
+<p>这个说明 console.log 方法被重写了，不打印任何东西,不然则会返回下面的内容</p>
+<pre><code>console.log
+ƒ log() { [native code] }
+</code></pre>
+<p>一般重写console.log 的方法如下</p>
+<pre><code>var console = {};
+console.log = function(){};
+console.info = function(){};
+window.console = console;
+</code></pre>
+<h2 id="解决办法">解决办法</h2>
+<p>在 网页中重新注入一个 console 。但是由于无法直接修改已经存在的 网页，我们可以增加一个 <strong>iframe</strong>, 在里面增加一个  console</p>
+<pre><code>(function(){
+　　var iframe = document.createElement('iframe')
+　　document.body.appendChild(iframe)
+　　window.console = iframe.contentWindow.console
+}())
+
+</code></pre>
+<p>但是这个办法也只能临时解决无法打印日志的问题，最根本的是需要前端去掉 重写的  console.log 。在发布以后再增加.</p>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://BCing.github.io/tag/IyVsnwowr/" class="tag">
+                    前端
+                  </a>
+                
+                  <a href="https://BCing.github.io/tag/-g2Rq_AL23/" class="tag">
+                    js
+                  </a>
+                
+                  <a href="https://BCing.github.io/tag/code/" class="tag">
+                    code
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://BCing.github.io/post/ypaEwaCJi/">
+                  <h3 class="post-title">
+                    pyinstaller 打包 humanize 报错 解决
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+
+
+  </body>
+</html>

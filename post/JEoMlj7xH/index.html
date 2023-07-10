@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>uiautomator2 滑动 | CBing 小站</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://BCing.github.io/favicon.ico?v=1688982863407">
+<link rel="stylesheet" href="https://BCing.github.io/styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="一、滚动操作：scroll
+1、含义理解：滚动页面，与坐标无关系
+2、 源码
+
+3、例子
+
+# 垂直滚动到页面顶部/横向滚动到最左侧
+d(scrollable=True).scroll.toBeginning()
+d(scrollable=..." />
+    <meta name="keywords" content="" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://BCing.github.io">
+        <img src="https://BCing.github.io/images/avatar.png?v=1688982863407" class="site-logo">
+        <h1 class="site-title">CBing 小站</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/tag/code/" class="site-nav">
+            技术
+          </a>
+        
+      
+        
+          <a href="/tag/life/" class="site-nav">
+            生活
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      CBing 小站
+    </div>
+    <div class="site-footer">
+       | <a class="rss" href="https://BCing.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">uiautomator2 滑动</h2>
+            <div class="post-date">2021-08-05</div>
+            
+            <div class="post-content" v-pre>
+              <h2 id="一-滚动操作scroll">一、滚动操作：scroll</h2>
+<p>1、含义理解：滚动页面，与坐标无关系<br>
+2、 源码<br>
+<img src="https://BCing.github.io/post-images/1628157456367.jpg" alt="" loading="lazy"></p>
+<p>3、例子</p>
+<pre><code>
+# 垂直滚动到页面顶部/横向滚动到最左侧
+d(scrollable=True).scroll.toBeginning()
+d(scrollable=True).scroll.horiz.toBeginning()
+# 垂直滚动到页面最底部/横向滚动到最右侧
+d(scrollable=True).scroll.toEnd()
+d(scrollable=True).scroll.horiz.toEnd()
+# 垂直向后滚动到指定位置/横向向右滚动到指定位置
+d(scrollable=True).scroll.to(description=&quot;指定位置&quot;)
+d(scrollable=True).scroll.horiz.to(description=&quot;指定位置&quot;)
+# 垂直向前滚动（横向同理）
+d(scrollable=True).scroll.forward()
+# 垂直向前滚动到指定位置（横向同理）
+d(scrollable=True).scroll.forward.to(description=&quot;指定位置&quot;)
+</code></pre>
+<p>4、注意事项：其他页面滚动的情况请看源码示例，可以随意组合，一般情况下都能滚动到自己想要的页面位置；如果scroll不能滚动到自己想要的位置，请使用swipe方法，如下所示</p>
+<h2 id="二-滑动操作swipe">二、滑动操作：swipe</h2>
+<p>1、含义理解：从A点滑动到B点，可以理解为滑动屏幕<br>
+2、 源码<br>
+<img src="https://BCing.github.io/post-images/1628157550164.jpg" alt="" loading="lazy"></p>
+<p>3、例子</p>
+<pre><code># 从sx，sy坐标滑动至ex，ey坐标
+d.swipe(sx, sy, ex, ey)
+</code></pre>
+<h2 id="三-拖拽操作drag">三、拖拽操作：drag</h2>
+<p>1、含义理解：把A拖拽到B的位置，可以理解为拖拽按钮，与swipe类似<br>
+2、源码示例：<br>
+<img src="https://BCing.github.io/post-images/1628157685933.jpg" alt="" loading="lazy"></p>
+<p>3、例子</p>
+<pre><code># 从sx，sy坐标拖拽至ex，ey坐标
+d.drag(sx, sy, ex, ey)
+</code></pre>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://BCing.github.io/post/ZRmDwlQcZ/">
+                  <h3 class="post-title">
+                    浏览器控制台 console 无法打印问题
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+
+
+  </body>
+</html>

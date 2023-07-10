@@ -1,0 +1,1363 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://BCing.github.io</id>
+    <title>CBing 小站</title>
+    <updated>2023-07-10T09:54:51.348Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://BCing.github.io"/>
+    <link rel="self" href="https://BCing.github.io/atom.xml"/>
+    <subtitle>CBing 小站</subtitle>
+    <logo>https://BCing.github.io/images/avatar.png</logo>
+    <icon>https://BCing.github.io/favicon.ico</icon>
+    <rights>All rights reserved 2023, CBing 小站</rights>
+    <entry>
+        <title type="html"><![CDATA[python 实现信号槽]]></title>
+        <id>https://BCing.github.io/post/5DgzA-Mkx/</id>
+        <link href="https://BCing.github.io/post/5DgzA-Mkx/">
+        </link>
+        <updated>2022-02-22T07:46:21.000Z</updated>
+        <content type="html"><![CDATA[<pre><code>#coding:utf-8
+from collections import deque
+from threading import Lock
+class MySignal(object):
+
+    def __init__(self):
+        self.collection = deque()
+        self.lock = Lock()
+
+    def connect(self, fun):
+        if fun not in self.collection:
+            self.collection.append(fun)
+
+    def emit(self, *args, **kwargs):
+        self.lock.acquire()
+        for fun in set(self.collection):
+            fun(*args, **kwargs)
+        self.lock.release()
+
+class MyTypeSignal(object):
+    sendmsg = MySignal()#实例化
+
+    def run(self):
+        pass
+        # self.sendmsg.emit('send')#发送
+
+class MyTypeSlot(object):
+
+    def get(self, msg):#槽对象里的槽函数
+        print( 'My slot get msg', msg)
+    
+def wsResult(msg):
+    print(&quot;=========&quot;)
+    print(msg)
+
+if __name__ == &quot;__main__&quot;:
+
+    send = MyTypeSignal()
+    slot = MyTypeSlot()
+    send.sendmsg.connect(wsResult)#链接信号槽
+    send.run()
+    send.sendmsg.emit('hello whorhd')
+    # send.sendmsg.emit('aaaa')
+    # send.sendmsg.emit('aaaa')
+    # slot.get(&quot;asa&quot;)
+     
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[uiautomator2 滑动]]></title>
+        <id>https://BCing.github.io/post/JEoMlj7xH/</id>
+        <link href="https://BCing.github.io/post/JEoMlj7xH/">
+        </link>
+        <updated>2021-08-05T09:55:46.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="一-滚动操作scroll">一、滚动操作：scroll</h2>
+<p>1、含义理解：滚动页面，与坐标无关系<br>
+2、 源码<br>
+<img src="https://BCing.github.io/post-images/1628157456367.jpg" alt="" loading="lazy"></p>
+<p>3、例子</p>
+<pre><code>
+# 垂直滚动到页面顶部/横向滚动到最左侧
+d(scrollable=True).scroll.toBeginning()
+d(scrollable=True).scroll.horiz.toBeginning()
+# 垂直滚动到页面最底部/横向滚动到最右侧
+d(scrollable=True).scroll.toEnd()
+d(scrollable=True).scroll.horiz.toEnd()
+# 垂直向后滚动到指定位置/横向向右滚动到指定位置
+d(scrollable=True).scroll.to(description=&quot;指定位置&quot;)
+d(scrollable=True).scroll.horiz.to(description=&quot;指定位置&quot;)
+# 垂直向前滚动（横向同理）
+d(scrollable=True).scroll.forward()
+# 垂直向前滚动到指定位置（横向同理）
+d(scrollable=True).scroll.forward.to(description=&quot;指定位置&quot;)
+</code></pre>
+<p>4、注意事项：其他页面滚动的情况请看源码示例，可以随意组合，一般情况下都能滚动到自己想要的页面位置；如果scroll不能滚动到自己想要的位置，请使用swipe方法，如下所示</p>
+<h2 id="二-滑动操作swipe">二、滑动操作：swipe</h2>
+<p>1、含义理解：从A点滑动到B点，可以理解为滑动屏幕<br>
+2、 源码<br>
+<img src="https://BCing.github.io/post-images/1628157550164.jpg" alt="" loading="lazy"></p>
+<p>3、例子</p>
+<pre><code># 从sx，sy坐标滑动至ex，ey坐标
+d.swipe(sx, sy, ex, ey)
+</code></pre>
+<h2 id="三-拖拽操作drag">三、拖拽操作：drag</h2>
+<p>1、含义理解：把A拖拽到B的位置，可以理解为拖拽按钮，与swipe类似<br>
+2、源码示例：<br>
+<img src="https://BCing.github.io/post-images/1628157685933.jpg" alt="" loading="lazy"></p>
+<p>3、例子</p>
+<pre><code># 从sx，sy坐标拖拽至ex，ey坐标
+d.drag(sx, sy, ex, ey)
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[浏览器控制台 console 无法打印问题]]></title>
+        <id>https://BCing.github.io/post/ZRmDwlQcZ/</id>
+        <link href="https://BCing.github.io/post/ZRmDwlQcZ/">
+        </link>
+        <updated>2021-06-03T08:00:53.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="问题描述">问题描述</h2>
+<p>通常我们在调试前端的过程中，都会在浏览器控制台中打印日志，一般是使用 <strong>console.log()</strong>。但是如果网页把console.log(),重写了，让其无法打印任何东西，就会出现下面的情况，无论打印什么都是 undefind。</p>
+<pre><code>console.log('Hello World')
+// undefined
+</code></pre>
+<h2 id="查看原因">查看原因</h2>
+<p>查看  console.log,返回   ƒ (){}</p>
+<pre><code>console.log
+ƒ (){}
+</code></pre>
+<p>这个说明 console.log 方法被重写了，不打印任何东西,不然则会返回下面的内容</p>
+<pre><code>console.log
+ƒ log() { [native code] }
+</code></pre>
+<p>一般重写console.log 的方法如下</p>
+<pre><code>var console = {};
+console.log = function(){};
+console.info = function(){};
+window.console = console;
+</code></pre>
+<h2 id="解决办法">解决办法</h2>
+<p>在 网页中重新注入一个 console 。但是由于无法直接修改已经存在的 网页，我们可以增加一个 <strong>iframe</strong>, 在里面增加一个  console</p>
+<pre><code>(function(){
+　　var iframe = document.createElement('iframe')
+　　document.body.appendChild(iframe)
+　　window.console = iframe.contentWindow.console
+}())
+
+</code></pre>
+<p>但是这个办法也只能临时解决无法打印日志的问题，最根本的是需要前端去掉 重写的  console.log 。在发布以后再增加.</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[pyinstaller 打包 humanize 报错 解决]]></title>
+        <id>https://BCing.github.io/post/ypaEwaCJi/</id>
+        <link href="https://BCing.github.io/post/ypaEwaCJi/">
+        </link>
+        <updated>2021-03-29T05:59:47.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="问题描述">问题描述</h2>
+<p>在使用 pyinstaller 打包包含 humanize 的 python 项目的时候， 出现下面的错误</p>
+<pre><code>
+pkg_resources.DistributionNotFound: The 'humanize' distribution was not found and is required by the application
+</code></pre>
+<p>大概是 humanize 这个  没有被打包进去</p>
+<h2 id="解决办法">解决办法</h2>
+<p>在打包的 python 文件的同级目录，创建一个  hook-humanize.py 文件 ,在这个文件中添加如下代码</p>
+<pre><code>from PyInstaller.utils.hooks import copy_metadata
+
+datas = copy_metadata('humanize')
+</code></pre>
+<p>使用命令  <code>pyinstaller -F -c --additional-hooks-dir=./ main.py </code> 进行打包， 这里需要注意，一定要添加   <strong>--additional-hooks-dir=./</strong></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[《巨人的陨落》--读书笔记]]></title>
+        <id>https://BCing.github.io/post/51psYWVs8/</id>
+        <link href="https://BCing.github.io/post/51psYWVs8/">
+        </link>
+        <updated>2021-03-03T05:17:19.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="书籍简介">书籍简介</h1>
+<p>《巨人的陨落》是2016年4月30日江苏凤凰文艺出版社出版的图书，作者是 英国作家 肯·福莱特，译者是于大卫。2018年12月21日，《巨人的陨落》入选“40年·25部影响力外译作品”书单。<br>
+“福莱特再次创造了一个既熟悉又美妙的世界，以及一种纯粹的阅读乐趣，让你根本放不下这本书。帝国衰落，英雄崛起，真爱无敌。你会忍不住和书里的角色在战火硝烟中同呼吸、共命运，并希望福莱特的下一本大部头赶快砸过来。”——《Time Out纽约》</p>
+<h1 id="故事发展主要情节">故事发展主要情节</h1>
+<p>阅有感，思有味：读一篇曲折的故事，就像品一杯老酒，酣畅淋漓，回味无穷。朴实的文字，流畅的情感，时时叩问读者的灵魂，牵动每一颗神经。这就是所谓的大家手笔，如同铺开绵延的卷轴，将故事婉婉道来。置身于他呕心沥血的创作中，呼吸相同的空气，与书中人物并肩战斗。历历在目，感同身受，默然深省。肯·福莱特，被称作戴着镣铐跳舞的作家。细致的历史考究，在大时代社会背景下，将真实史料与故事杜撰巧妙结合，仿佛每一个人物形象更加鲜活，耐人寻味的历史气息更加浓重。年年岁岁花相似，岁岁年年人不同。每个时代有自己的属性，每个社会有自己的标签，可是社会巨轮的发展与芸芸众生的命运休戚相关。不管是大家族的兴衰起落，还是小人物的喜怒哀乐，都难得可贵。也许是肯·福莱特在书中特别好地处理了“大”与“小”的关系。</p>
+<h2 id="大时代与小人物">大时代与小人物</h2>
+<p>这是一个波澜壮阔的大时代，而作家着重刻画的，却是几个具体而微的小人物。他们分布于英国、俄国、德国、美国、威尔士五个不同的家族，不同性别、不同阶级、不同性格，有衔着金钥匙出生的传统世袭贵族，有决心与命运抗争的底层劳工；有不同阶层的女权主义者，有了解高层决策的总统随员；有视爱情高于一切的异国情侣，有个性不一追求各异的兄弟姐妹。一幕幕浮沉兴衰、一场场悲欢离合，作者通过小人物的命运抉择支撑起了时代的大背景，又用宏大的历史感将读者带入那个时代，并沉浸其中、不能自拔。</p>
+<h2 id="大事件与小视角">大事件与小视角</h2>
+<p>施里芬计划、索姆河战役、二月革命、十月革命、巴黎和会，一个个历史大事件被作者精彩地呈现出来，但却并不是我们常见的国家视角、高层视角和上帝视角，而是一个个不太重要的历史当事人的个人视角、底层视角和主观视角。即使是那些历史中的真实人物，丘吉尔、列宁、威尔逊，也都以历史参与者而不是书写者的面貌出现。这样的视角，让历史变得更真实、更丰满、更有现场感，不再是宏大而冰冷的叙事，而是每一个当事人的参与、见证与共同塑造，浸着他们的血泪，带着他们的体温。</p>
+<h2 id="大潮流与小轨迹">大潮流与小轨迹</h2>
+<p>时代变迁有自己的潮流，时代中的人也有不同的人生轨迹。菲茨和比利，高高在上的贵族和工作在地下的矿工，因为时代的变迁走上了同一个战场，成为了上级和下级，最后又殊途同归成为了英国议员；而他俩的姐妹，茉黛和艾瑟尔，两个不同阶层的女性，因为女权主义的愿景走到了一起，又因为骨子里的阶级和性格差异分道扬镳；格雷戈里和列夫兄弟，同样有着儿时的苦难和出众的天赋，却因迥异的性格和际遇走上了完全不同的道路，一个成为布尔什维克的高层，一个成为黑白不甚分明的美国商业巨头。个体被历史塑造，也塑造着历史，个人的轨迹与历史的潮流相互影响着、共振着，肯·福莱特的安排既精致又合理，令人感叹，令人信服。</p>
+<h2 id="大矛盾与小冲突">大矛盾与小冲突</h2>
+<p>那是个充满着历史矛盾的时代，国家矛盾、民族矛盾、阶级矛盾、意识形态矛盾，交织在一起，把整个世界搅了个天翻地覆。具体到五大家族的故事中，这些矛盾就演化成了一幕幕的冲突，欢宴与矿难的鲜明对比，祖国与爱情的两难选择，战争与和平的政见分歧，亲情与自我的不可调和，一个又一个的小冲突给故事的推进带来了紧张感的节奏感，看似偶然的背后，深刻反映出深层次矛盾带来的必然。</p>
+<h2 id="大布局与小埋伏">大布局与小埋伏</h2>
+<p>五个家族，一百多个人物，横跨两大洲，纵贯十余年，每一条故事线都要足够丰满，不同主人公的分量要均衡，人物与线索之间的串联与衔接要不露痕迹，故事涉及到的历史情节与人物要真实，虚构人物在其中的作用要合理，这样的线索安排着实不容易。在这样的精妙布局之下，肯·福莱特还经常刻意不刻意地安排一些小情节，给我留下最深刻印象的是平斯基，这个沙俄时代的坏警察，居然也成了布尔什维克的骨干力量。这样的安排，看似微不足道但却对未来的故事走向至关重要，草蛇灰线，伏延千里。</p>
+<h2 id="大思考与小关切">大思考与小关切</h2>
+<p>贯穿于肯·福莱特整部作品的，是他对于时代价值的大思考，国家还是民族、独裁还是民主、战争还是和平、革命还是改良。而大思考的夹层中，是许许多多对于个体命运的小关切，爱情还是亲情、顺从还是抗争、依存还是独立、生存还是死亡。当我读到索姆河战役愚蠢的指挥造成的悲惨与残酷，读到阿伯罗温的母亲们接到阵亡通知书时撕心裂肺的痛楚，我似乎体会到、感受到了这些思考与关切，一种悲悯笼罩住我的心头，刹那间热泪盈眶。</p>
+<p>这些“大”与“小”，在肯·福莱特的笔下，达到了一种较为完美的平衡，既不浮夸，也不局促；既不做作，也不平庸。</p>
+<h1 id="感悟">感悟</h1>
+<p>不得不说，这本书的内容情节真的是十分精彩。书中每一个看似不经意的事件，都能给人带来一次深刻的震撼。尤其是对战争部分的描述，战争时每个人物的命运都时时刻刻牵动着我的心。本书在一战的背景下，用五组不同阶级的人物关系，纵横交替出一幅气势磅礴的历史画卷，战争的残酷，政治的阴谋，男女之间的情爱，生活的窘迫，对自由与和平的向往，一幕幕画面真实展现在眼前，不同人物不同的性格与命运，描写的都很精彩，书中人物与真实的历史人物的各种细节处理的非常好，虚构的人物与真实的历史人物交融在一起，发生了奇妙的反应，让原本枯燥的历史更具现实感。百分之十的真实历史人物和百分之九十的虚拟的人物，通过大量细节的刻画，从侧面勾勒出了第一次世界大战的宏大历史演进，偶发的斐迪南大公遇刺事件使欧洲积累了几十年的恩怨情仇瞬间爆发，奥匈帝国，沙俄帝国，德意志帝国相继陨落，但作品给我感触最深的是世界不同角落的几个不谙世事的年轻人经历了无数挫折与困难，由幼稚单纯走向理性睿智的过程。一个个小人物，将大的历史事件串联，不乏对历史认识的深入准确，这些聪明的小人物，通过革命或变革，建立了新的社会制度。一个个小人物，一群人的抗争，有茉黛、艾丝为争取女性选举权的努力；有沃尔特、格斯为促成和平达成的合作；有比利、格雷戈瓦对军官命令的反抗。喜欢聪明的艾瑟尔和比利姐弟，他们出身平民，却能自强不息。沃尔特和苿黛矢志不移的爱情，是本书最吸引我的，它让我感动，让我向往。格雷戈里是一个有理想有正义感有担当的硬汉，他痛恨腐朽而又残暴的沙皇统治，立志要推翻它，他致力于布尔什维克的革命运动，全心全意支持列宁…在我心中他是个很有魅力的男人。他们参与了历史，见证了和平，在历史的进程中完成各自的使命。给我印象最深的是茉黛。这个贵族女子生活完全依赖哥哥菲兹，看似生活中寄生虫，却有自己的见识和主张。在社交场里，她不以觅得如意郎君目的，而是积极致力于为女性争取权益。为单亲妈妈开办诊所、为军人家属争取补贴而入狱、为只有部分女性得到选举权而愤愤不平。更难得的是，战争使德国和英国交恶，她却坚守与德国丈夫沃尔特的爱情，最后跟着男方回到德国。在战后的德国，生活极其艰苦，她从头开始学会做家务，并且放下贵族的骄傲到夜总会弹琴唱歌补贴家用。在这样的生活状态下，她不抱怨，反而感受到与相爱的人一起的快乐。即使在丈夫上班前她们只有两个小时的相处时间，也要抓紧时间交谈、做爱。生活纵使发生了巨变，也顽强地活着，并且越活越好。本书让我通过引人入胜的故事，让我了解了第一次世界大战那段惊心动魄的历史。一次世界大战，无数的人死于战火，无数的家园被摧毁，却是少数有权有势之人为了某方面的利益，或者是政治家为了逞强而导致，结果是始作俑者自作自受，还白白害了那么多的生命。任何时候人们都渴望和平！战争带来的满目疮痍，任何时候都不想让人看到，经济的大萧条，社会购买力的降低，导致人们为了生存而不得不高额出售货品，世事艰难而艰辛！</p>
+<p>这是一个最好的世界，也是一个最坏的世界。历史的洪流涤荡着每一个人，有的人走下了舞台，有的人正拾阶而上。引导人们的，是内心的善恶。每个时代的人们都有着不一样的生活，不同的背景，不同的经历，成就了我们不一样的人生，不管现在的我们，正在经历什么，但至少我们应该庆幸，生在了没有战争、饥饿和激烈的阶级斗争的国家中，虽然还有各种不幸，但比起那个时代的他们，我们算幸运的。读书让我知道他人的生活，会让我更珍惜现有的一切；认识他人的遭遇和温暖，会让我更加的心怀慈悲与善良；了解他人逆境中的不屈和坚定，会让我对无法预见的未来更有勇气。生而为人，我们都在奔赴死亡，惟愿认清自己的懦弱后，勇敢的随心而活。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Android模拟屏幕点击]]></title>
+        <id>https://BCing.github.io/post/PE7cZQfdU/</id>
+        <link href="https://BCing.github.io/post/PE7cZQfdU/">
+        </link>
+        <updated>2021-02-22T04:14:25.000Z</updated>
+        <content type="html"><![CDATA[<!-- more -->
+<h3 id="android模拟屏幕点击">Android模拟屏幕点击</h3>
+<p>在Android开发中如果要使用 模拟点击等操作，一般是需要使用 adb 命令。但是如果使用 adb ，需要开启手机开发者模式，用数据线连接电脑。然后在电脑上发送 adb 命令。这样操作太麻烦，有没有什么办法能直接在手机上，自己模拟 adb 命令。</p>
+<h3 id="使用-processbuilder">使用 ProcessBuilder</h3>
+<p>ProcessBuilder 文档地址   <a href="https://developer.android.google.cn/reference/java/lang/ProcessBuilder?hl=zh-cn">https://developer.android.google.cn/reference/java/lang/ProcessBuilder?hl=zh-cn</a></p>
+<h4 id="processbuilder-的用途">ProcessBuilder 的用途</h4>
+<p>管理着一系列关于一个进程的属性，并且可以通过这些属性创建一个系统进程（Java Process的子进程）</p>
+<h4 id="processbuilder-管理的属性">ProcessBuilder 管理的属性</h4>
+<ol>
+<li>command, 指向着一系列可能会被执行的外部文件，和一系列取决于所处系统的操作系统命令</li>
+<li>environment, 取决于所处系统的环境变量，起始值当前进程的环境变量拷贝</li>
+<li>working directory, 默认值是该进程的工作目录。</li>
+<li>standard input、standard output、standout error,指向该进程的各种流，可以通过Process类下的相应方法获得</li>
+<li>redirectErrorStream, 用来指示该进程的standard output和error output是否输出到同一个地方</li>
+</ol>
+<h4 id="注意事项">注意事项</h4>
+<p>由于该类没有使用同步锁，因此在多线程情况使用时需要手动在外部使用同步锁的操作</p>
+<h3 id="process">Process</h3>
+<h4 id="1-process-类是什么">1. Process 类是什么？</h4>
+<ol>
+<li>Process 本身是一个抽象类，就其本身来说代表着对一个进程的操作控制，同时拥有着关于这个进程的一些信息。</li>
+<li>由ProcessBuilder.start() 和 Runtime.exec() 创建一个Process的子类对象，通过该对象进行操作。</li>
+</ol>
+<h4 id="2-process-类能够对进程进行哪些操作">2. Process 类能够对进程进行哪些操作？</h4>
+<ol>
+<li>获取进程的输入输出流</li>
+<li>查看进程的退出状态</li>
+<li>杀死进程</li>
+<li>等待进程执行的完成</li>
+</ol>
+<h3 id="模拟点击示例">模拟点击示例</h3>
+<p>java</p>
+<pre><code>// adb shell tap x y
+    private  void  Tap(int x,int y){
+        String[] order = {&quot;input&quot;, &quot;tap&quot;, &quot;&quot;+x, &quot;&quot;+y};
+        try {
+            new ProcessBuilder(order).start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+</code></pre>
+<p>kotlin</p>
+<pre><code>// adb shell tap x y 
+private fun click(x:Int,y:Int) {
+        val order = listOf(&quot;input&quot;,
+                &quot;tap&quot;,
+                &quot;&quot; + x,
+                &quot;&quot; + y)
+        ProcessBuilder(order).start()
+ }
+</code></pre>
+<p>也可以执行其他 类似于 adb 的命令</p>
+<p>封装  ShellUtils.java</p>
+<pre><code>public class ShellUtils {
+
+    private static ProcessBuilder processBuilder = new ProcessBuilder();
+
+    public static Process exec(String[] commend) {
+        Process process = null;
+        try {
+//            String[] commends = new String[commend.size()];
+//            commend.toArray(commends);
+            processBuilder.command(commend);
+            process = processBuilder.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return process;
+    }
+
+
+    public static String getOutput(Process process) {
+        String output = null;
+        BufferedReader reader = null;
+        try {
+            if (process != null) {
+                StringBuffer stringBuffer = new StringBuffer();
+                reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+                while (reader.read() != -1){
+                    stringBuffer.append(&quot;\n&quot; + reader.readLine());
+                }
+                output = stringBuffer.toString();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        closeQuietly(reader);
+        return output;
+    }
+
+    public static String getError(Process process) {
+        String errput = null;
+        BufferedReader reader = null;
+        try {
+            if (process != null) {
+                StringBuffer stringBuffer = new StringBuffer();
+                reader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+                while (reader.read() != -1){
+                    stringBuffer.append(&quot;\n&quot; + reader.readLine());
+                }
+                errput = stringBuffer.toString();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        closeQuietly(reader);
+        return errput;
+    }
+
+    public static void closeQuietly(Reader reader) {
+        try {
+            if (reader != null) {
+                reader.close();
+            }
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public static void destroy(Process process) {
+        if (process != null) {
+            process.destroyForcibly();
+        }
+    }
+}
+
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[我们不过是在平凡的世界里的一颗沙砾]]></title>
+        <id>https://BCing.github.io/post/x15tuHFAL/</id>
+        <link href="https://BCing.github.io/post/x15tuHFAL/">
+        </link>
+        <updated>2020-10-14T09:14:16.000Z</updated>
+        <summary type="html"><![CDATA[<p>好好活着</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>好好活着</p>
+<!-- more -->
+<p>今天刷微博看到看到了大连理工一同学的 <code>遗言</code>，<br>
+<img src="https://BCing.github.io/post-images/1602686427369.jpg" alt="" loading="lazy"></p>
+<p>整篇没有任何的抱怨和对这个世界的不满，用开着玩笑，留下祝福的语气离开了这个世界，对他来说，这也许是最好的结局了吧，同学，希望你下辈子成为最幸福的猫咪，每天晒晒太阳，慵懒的伸伸腰。</p>
+<p>在这个社会，一出生就寄托了许多人的希望，父母长辈，老师朋友，总是在不断的告诉你应该怎样怎样。但是我们不过是茫茫世界上的一粒沙砾，并没有那么大的能力。所以我们只要做到力所能及的事情就行了，人生很短，过自己想要的生活。 要学会承认自己的平庸，承认自己的不完美，自己的自私。然后做好自己的事情，自己喜欢的事情就行了。就像毛不易在 《像我这样的人》 中唱的一样，虽然歌词每一句都是在反问为什么，但是这何尝不是在承认自己的平庸，和大多数人一样，我们都是茫茫人海中最平凡的一颗沙砾。所以不要给自己太大的目标。完不成的事情，就放弃吧，也许会在沙漠中找到一处其他的绿洲。也一定会有属于自己的的那一片绿色。</p>
+<p>最近这段时间也是压力有点大，与其说压力大，不如说有点迷茫，不知道未来的路了，目之所及处，皆是浓雾。不管是对于感情还是对于职业规划。亦或是学业。都有点不知所措了。 可能是一个人呆太久了原因，希望自己能够赶紧调整过来，好好的规划。尽快完成下面的几点吧</p>
+<ol>
+<li>把驾照考了</li>
+<li>重新捡回 java，怎么也得精通吧</li>
+<li>如果有可能，还是想要去考个研</li>
+<li>在找找机会，学习一下其他的东西，俗话说： 技多不压身</li>
+<li>多锻炼身体</li>
+<li>如果有可能，遇到一个能互相倾述的人</li>
+<li>认真的生活</li>
+</ol>
+<p>今天微博上还有一句话 <code>我们的这辈子，就是我们上一辈子说的下一辈子</code>。所以啊。好好的感受生活。毕竟是上一世对这辈子最美好的期待。<br>
+加油~~~</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[关于]]></title>
+        <id>https://BCing.github.io/post/about/</id>
+        <link href="https://BCing.github.io/post/about/">
+        </link>
+        <updated>2019-01-25T11:09:48.000Z</updated>
+        <content type="html"><![CDATA[<blockquote>
+<p>欢迎来到我的小站呀，很高兴遇见你！🤝</p>
+</blockquote>
+<h2 id="关于本站">🏠 关于本站</h2>
+<pre><code>记录个人生活、工作、小心情
+</code></pre>
+<h2 id="博主是谁">👨‍💻 博主是谁</h2>
+<p>男的</p>
+<h2 id="兴趣爱好">⛹ 兴趣爱好</h2>
+<pre><code>看书、跑步、研究黑暗料理
+</code></pre>
+<h2 id="联系我呀">📬 联系我呀</h2>
+<pre><code>📬 cbing7592@qq.com
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[android中常用的系统工具类整理]]></title>
+        <id>https://BCing.github.io/post/96C7V5Xmu/</id>
+        <link href="https://BCing.github.io/post/96C7V5Xmu/">
+        </link>
+        <updated>2016-10-16T09:45:04.000Z</updated>
+        <summary type="html"><![CDATA[<p>这里是本人收集的一些系统的/非系统的工具类整理</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>这里是本人收集的一些系统的/非系统的工具类整理</p>
+<!-- more -->
+<pre><code>@TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
+public class TDevice {
+
+    // 手机网络类型
+    public static final int NETTYPE_WIFI = 0x01;
+    public static final int NETTYPE_CMWAP = 0x02;
+    public static final int NETTYPE_CMNET = 0x03;
+
+    public static boolean GTE_HC;
+    public static boolean GTE_ICS;
+    public static boolean PRE_HC;
+    private static Boolean _hasBigScreen = null;
+    private static Boolean _hasCamera = null;
+    private static Boolean _isTablet = null;
+    private static Integer _loadFactor = null;
+
+    private static int _pageSize = -1;
+    public static float displayDensity = 0.0F;
+
+    static {
+        GTE_ICS = Build.VERSION.SDK_INT &gt;= 14;
+        GTE_HC = Build.VERSION.SDK_INT &gt;= 11;
+        PRE_HC = Build.VERSION.SDK_INT &gt;= 11 ? false : true;
+    }
+
+    public TDevice() {
+    }
+    /**
+     * 获取系统当前当前时间戳
+      */
+
+    public static String getTimesTamp() {
+        long timestamp = System.currentTimeMillis()/1000;
+        return String.valueOf(timestamp);
+    }
+
+    /**
+     * dp值
+     *
+     * @param dp
+     * @return
+     */
+    public static float dpToPixel(float dp) {
+        return dp * (getDisplayMetrics().densityDpi / 160F);
+    }
+
+    public static int getDefaultLoadFactor() {
+        if (_loadFactor == null) {
+            Integer integer = Integer.valueOf(0xf &amp; CXWYApplication.getContext()
+                    .getResources().getConfiguration().screenLayout);
+            _loadFactor = integer;
+            _loadFactor = Integer.valueOf(Math.max(integer.intValue(), 1));
+        }
+        return _loadFactor.intValue();
+    }
+
+    /**
+     * 获取密度
+     *
+     * @return
+     */
+    public static float getDensity() {
+        if (displayDensity == 0.0)
+            displayDensity = getDisplayMetrics().density;
+        return displayDensity;
+    }
+
+    /**
+     * 获取屏幕参数
+     * {density=3.5, width=1440, height=2392, scaledDensity=3.5, xdpi=560.0, ydpi=560.0}
+     *
+     * @return
+     */
+    public static DisplayMetrics getDisplayMetrics() {
+        DisplayMetrics displaymetrics = new DisplayMetrics();
+        ((WindowManager) CXWYApplication.getContext().getSystemService(
+                Context.WINDOW_SERVICE)).getDefaultDisplay().getMetrics(
+                displaymetrics);
+        return displaymetrics;
+    }
+
+    /**
+     * 获取屏幕高度
+     *
+     * @return
+     */
+    public static float getScreenHeight() {
+        return getDisplayMetrics().heightPixels;
+    }
+
+    /**
+     * 获取屏幕宽度
+     *
+     * @return
+     */
+
+    public static float getScreenWidth() {
+        return getDisplayMetrics().widthPixels;
+    }
+
+    public static int[] getRealScreenSize(Activity activity) {
+        int[] size = new int[2];
+        int screenWidth = 0, screenHeight = 0;
+        WindowManager w = activity.getWindowManager();
+        Display d = w.getDefaultDisplay();
+        DisplayMetrics metrics = new DisplayMetrics();
+        d.getMetrics(metrics);
+        // since SDK_INT = 1;
+        screenWidth = metrics.widthPixels;
+        screenHeight = metrics.heightPixels;
+        // includes window decorations (statusbar bar/menu bar)
+        if (Build.VERSION.SDK_INT &gt;= 14 &amp;&amp; Build.VERSION.SDK_INT &lt; 17)
+            try {
+                screenWidth = (Integer) Display.class.getMethod(&quot;getRawWidth&quot;)
+                        .invoke(d);
+                screenHeight = (Integer) Display.class
+                        .getMethod(&quot;getRawHeight&quot;).invoke(d);
+            } catch (Exception ignored) {
+            }
+        // includes window decorations (statusbar bar/menu bar)
+        if (Build.VERSION.SDK_INT &gt;= 17)
+            try {
+                Point realSize = new Point();
+                Display.class.getMethod(&quot;getRealSize&quot;, Point.class).invoke(d,
+                        realSize);
+                screenWidth = realSize.x;
+                screenHeight = realSize.y;
+            } catch (Exception ignored) {
+            }
+        size[0] = screenWidth;
+        size[1] = screenHeight;
+        return size;
+    }
+
+    public static int getStatusBarHeight() {
+        Class&lt;?&gt; c = null;
+        Object obj = null;
+        Field field = null;
+        int x = 0;
+        try {
+            c = Class.forName(&quot;com.android.internal.R$dimen&quot;);
+            obj = c.newInstance();
+            field = c.getField(&quot;status_bar_height&quot;);
+            x = Integer.parseInt(field.get(obj).toString());
+            return CXWYApplication.getContext().getResources()
+                    .getDimensionPixelSize(x);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    /**
+     * 获取唯一标识码
+     * 9121e9b9-f0ee-4ea6-a9bd-802db5535f9b
+     *
+     * @return
+     */
+    public static String getUdid() {
+
+        String udid = PreferencesUtils.getInstance().getString(CXWYApplication.getContext(),
+                &quot;udid&quot;, &quot;&quot;);
+        if (udid.length() == 0) {
+            udid = String.format(&quot;%s&quot;, UUID.randomUUID());
+            PreferencesUtils.getInstance().putString(CXWYApplication.getContext(), &quot;udid&quot;, udid);
+        }
+        return udid;
+    }
+
+    /**
+     * 是否大屏
+     *
+     * @return
+     */
+
+    public static boolean hasBigScreen() {
+        boolean flag = true;
+        if (_hasBigScreen == null) {
+            boolean flag1;
+            if ((0xf &amp; CXWYApplication.getContext().getResources()
+                    .getConfiguration().screenLayout) &gt;= 3)
+                flag1 = flag;
+            else
+                flag1 = false;
+            Boolean boolean1 = Boolean.valueOf(flag1);
+            _hasBigScreen = boolean1;
+            if (!boolean1.booleanValue()) {
+                if (getDensity() &lt;= 1.5F)
+                    flag = false;
+                _hasBigScreen = Boolean.valueOf(flag);
+            }
+        }
+        return _hasBigScreen.booleanValue();
+    }
+
+    /**
+     * 是否存在相机
+     *
+     * @return
+     */
+    public static final boolean hasCamera() {
+        if (_hasCamera == null) {
+            PackageManager pckMgr = CXWYApplication.getContext()
+                    .getPackageManager();
+            boolean flag = pckMgr
+                    .hasSystemFeature(&quot;android.hardware.camera.front&quot;);
+            boolean flag1 = pckMgr.hasSystemFeature(&quot;android.hardware.camera&quot;);
+            boolean flag2;
+            if (flag || flag1)
+                flag2 = true;
+            else
+                flag2 = false;
+            _hasCamera = Boolean.valueOf(flag2);
+        }
+        return _hasCamera.booleanValue();
+    }
+
+    /**
+     * 判断是否有物理的menu键
+     *
+     * @param context
+     * @return
+     */
+    public static boolean hasHardwareMenuKey(Context context) {
+        boolean flag = false;
+        if (PRE_HC)
+            flag = true;
+        else if (GTE_ICS) {
+            flag = ViewConfiguration.get(context).hasPermanentMenuKey();
+        } else
+            flag = false;
+        return flag;
+    }
+
+    /**
+     * 判断是否有GSM网络
+     * 需要权限   ACCESS_NETWORK_STATE
+     *
+     * @return
+     */
+    public static boolean hasInternet() {
+        boolean flag;
+        if (((ConnectivityManager) CXWYApplication.getContext().getSystemService(
+                &quot;connectivity&quot;)).getActiveNetworkInfo() != null) {
+            flag = true;
+        } else
+            flag = false;
+        return flag;
+    }
+
+    /**
+     * 是否有google商店
+     *
+     * @param activity
+     * @param pck
+     * @return
+     */
+    public static boolean gotoGoogleMarket(Activity activity, String pck) {
+        try {
+            Intent intent = new Intent();
+            intent.setPackage(&quot;com.android.vending&quot;);
+            intent.setAction(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(&quot;market://details?id=&quot; + pck));
+            activity.startActivity(intent);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
+     * 判断程序是否安装
+     *
+     * @param pckName
+     * @return
+     */
+
+    public static boolean isPackageExist(String pckName) {
+        try {
+            PackageInfo pckInfo = CXWYApplication.getContext().getPackageManager()
+                    .getPackageInfo(pckName, 0);
+            if (pckInfo != null)
+                return true;
+        } catch (PackageManager.NameNotFoundException e) {
+            KLog.e(e.getMessage());
+        }
+        return false;
+    }
+
+    /**
+     * 隐藏动画视图
+     *
+     * @param view
+     */
+    public static void hideAnimatedView(View view) {
+        if (PRE_HC &amp;&amp; view != null)
+            view.setPadding(view.getWidth(), 0, 0, 0);
+    }
+
+    /**
+     * 显示动画视图
+     *
+     * @param view
+     */
+    public static void showAnimatedView(View view) {
+        if (PRE_HC &amp;&amp; view != null)
+            view.setPadding(0, 0, 0, 0);
+    }
+
+    /**
+     * 显示键盘dialog
+     *
+     * @param dialog
+     */
+    public static void showSoftKeyboard(Dialog dialog) {
+        dialog.getWindow().setSoftInputMode(4);
+    }
+
+    /**
+     * 显示键盘view
+     *
+     * @param view
+     */
+
+    public static void showSoftKeyboard(View view) {
+        ((InputMethodManager) CXWYApplication.getContext().getSystemService(
+                Context.INPUT_METHOD_SERVICE)).showSoftInput(view,
+                InputMethodManager.SHOW_FORCED);
+    }
+
+    /**
+     * 切换键盘
+     *
+     * @param view
+     */
+
+    public static void toogleSoftKeyboard(View view) {
+        ((InputMethodManager) CXWYApplication.getContext().getSystemService(
+                Context.INPUT_METHOD_SERVICE)).toggleSoftInput(0,
+                InputMethodManager.HIDE_NOT_ALWAYS);
+    }
+
+    /**
+     * 隐藏键盘
+     *
+     * @param view
+     */
+
+    public static void hideSoftKeyboard(View view) {
+        if (view == null)
+            return;
+        ((InputMethodManager) CXWYApplication.getContext().getSystemService(
+                Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(
+                view.getWindowToken(), 0);
+    }
+
+    /**
+     * 判断是否横屏
+     *
+     * @return
+     */
+    public static boolean isLandscape() {
+        boolean flag;
+        if (CXWYApplication.getContext().getResources().getConfiguration().orientation == 2)
+            flag = true;
+        else
+            flag = false;
+        return flag;
+    }
+
+    /**
+     * 判断是否竖屏
+     *
+     * @return
+     */
+
+    public static boolean isPortrait() {
+        boolean flag = true;
+        if (CXWYApplication.getContext().getResources().getConfiguration().orientation != 1)
+            flag = false;
+        return flag;
+    }
+
+    /**
+     * 判断是否平板
+     *
+     * @return
+     */
+
+    public static boolean isTablet() {
+        if (_isTablet == null) {
+            boolean flag;
+            if ((0xf &amp; CXWYApplication.getContext().getResources()
+                    .getConfiguration().screenLayout) &gt;= 3)
+                flag = true;
+            else
+                flag = false;
+            _isTablet = Boolean.valueOf(flag);
+        }
+        return _isTablet.booleanValue();
+    }
+
+    /**
+     * 单位转换
+     *
+     * @param f
+     * @return
+     */
+    public static float pixelsToDp(float f) {
+        return f / (getDisplayMetrics().densityDpi / 160F);
+    }
+
+    /**
+     * 判断是否有sd卡
+     *
+     * @return
+     */
+
+    public static boolean isSdcardReady() {
+        return Environment.MEDIA_MOUNTED.equals(Environment
+                .getExternalStorageState());
+    }
+
+    /**
+     * 判断系统语言国家
+     *
+     * @return
+     */
+    public static String getCurCountryLan() {
+        return CXWYApplication.getContext().getResources().getConfiguration().locale
+                .getLanguage()
+                + &quot;-&quot;
+                + CXWYApplication.getContext().getResources().getConfiguration().locale
+                .getCountry();
+    }
+
+    /**
+     * 判断是否中文简体（CN）国家中国
+     *
+     * @return
+     */
+
+    public static boolean isZhCN() {
+        String lang = CXWYApplication.getContext().getResources()
+                .getConfiguration().locale.getCountry();
+        if (lang.equalsIgnoreCase(&quot;CN&quot;)) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 获取两个数的百分比
+     *
+     * @param p1
+     * @param p2
+     * @return
+     */
+    public static String percent(double p1, double p2) {
+        String str;
+        double p3 = p1 / p2;
+        NumberFormat nf = NumberFormat.getPercentInstance();
+        nf.setMinimumFractionDigits(5);//保留的小数位数(精度)
+        str = nf.format(p3);
+        return str;
+    }
+
+    public static String percent2(double p1, double p2) {
+        String str;
+        double p3 = p1 / p2;
+        NumberFormat nf = NumberFormat.getPercentInstance();
+        nf.setMinimumFractionDigits(0);
+        str = nf.format(p3);
+        return str;
+    }
+
+    /**
+     * 打开本app在应用商店的页面
+     *
+     * @param context
+     */
+    public static void openAppInMarket(Context context) {
+
+        if (context != null) {
+            String pckName = context.getPackageName();
+            try {
+                String str = &quot;market://details?id=&quot; + pckName;
+                Intent localIntent = new Intent(&quot;android.intent.action.VIEW&quot;);
+                localIntent.setData(Uri.parse(str));
+                context.startActivity(localIntent);
+
+            } catch (Exception ex) {
+
+            }
+        }
+    }
+
+    /**
+     * 全屏显示，去掉顶部状态栏
+     *
+     * @param activity
+     */
+    public static void setFullScreen(Activity activity) {
+        WindowManager.LayoutParams params = activity.getWindow()
+                .getAttributes();
+        params.flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
+        activity.getWindow().setAttributes(params);
+        activity.getWindow().addFlags(
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+    }
+
+    /**
+     * 关闭全屏显示
+     *
+     * @param activity
+     */
+    public static void cancelFullScreen(Activity activity) {
+        WindowManager.LayoutParams params = activity.getWindow()
+                .getAttributes();
+        params.flags &amp;= (~WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        activity.getWindow().setAttributes(params);
+        activity.getWindow().clearFlags(
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+    }
+
+    /**
+     * 得到应用包名
+     *
+     * @param pckName
+     * @return
+     */
+    public static PackageInfo getPackageInfo(String pckName) {
+        try {
+            return CXWYApplication.getContext().getPackageManager()
+                    .getPackageInfo(pckName, 0);
+        } catch (PackageManager.NameNotFoundException e) {
+            KLog.e(e.getMessage());
+        }
+        return null;
+    }
+
+    /**
+     * 获得app版本号
+     *
+     * @return
+     */
+    public static int getVersionCode() {
+        int versionCode = 0;
+        try {
+            versionCode = CXWYApplication.getContext()
+                    .getPackageManager()
+                    .getPackageInfo(CXWYApplication.getContext().getPackageName(),
+                            0).versionCode;
+        } catch (PackageManager.NameNotFoundException ex) {
+            versionCode = 0;
+        }
+        return versionCode;
+    }
+
+    public static int getVersionCode(String packageName) {
+        int versionCode = 0;
+        try {
+            versionCode = CXWYApplication.getContext().getPackageManager()
+                    .getPackageInfo(packageName, 0).versionCode;
+        } catch (PackageManager.NameNotFoundException ex) {
+            versionCode = 0;
+        }
+        return versionCode;
+    }
+
+    /**
+     * 获取版本名称
+     *
+     * @return
+     */
+    public static String getVersionName() {
+        String name = &quot;&quot;;
+        try {
+            name = CXWYApplication.getContext()
+                    .getPackageManager()
+                    .getPackageInfo(CXWYApplication.getContext().getPackageName(),
+                            0).versionName;
+        } catch (PackageManager.NameNotFoundException ex) {
+            name = &quot;&quot;;
+        }
+        return name;
+    }
+
+    public static boolean isScreenOn() {
+        PowerManager pm = (PowerManager) CXWYApplication.getContext()
+                .getSystemService(Context.POWER_SERVICE);
+        return pm.isScreenOn();
+    }
+
+    /**
+     * 安装apk
+     *
+     * @param context
+     * @param file
+     */
+    public static void installAPK(Context context, File file) {
+        if (file == null || !file.exists())
+            return;
+        Intent intent = new Intent();
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setAction(Intent.ACTION_VIEW);
+        intent.setDataAndType(Uri.fromFile(file),
+                &quot;application/vnd.android.package-archive&quot;);
+        context.startActivity(intent);
+    }
+
+    /**
+     * 获得安转的apk
+     *
+     * @param file
+     * @return
+     */
+    public static Intent getInstallApkIntent(File file) {
+        Intent intent = new Intent();
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setAction(Intent.ACTION_VIEW);
+        intent.setDataAndType(Uri.fromFile(file),
+                &quot;application/vnd.android.package-archive&quot;);
+        return intent;
+    }
+
+    /**
+     * 打电话
+     *
+     * @param context
+     * @param number
+     */
+    public static void openDial(Context context, String number) {
+        Uri uri = Uri.parse(&quot;tel:&quot; + number);
+        Intent it = new Intent(Intent.ACTION_DIAL, uri);
+        context.startActivity(it);
+    }
+
+    /**
+     * 发短信
+     *
+     * @param context
+     * @param smsBody
+     * @param tel
+     */
+
+    public static void openSMS(Context context, String smsBody, String tel) {
+        Uri uri = Uri.parse(&quot;smsto:&quot; + tel);
+        Intent it = new Intent(Intent.ACTION_SENDTO, uri);
+        it.putExtra(&quot;sms_body&quot;, smsBody);
+        context.startActivity(it);
+    }
+
+    public static void openDail(Context context) {
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
+    }
+
+    public static void openSendMsg(Context context) {
+        Uri uri = Uri.parse(&quot;smsto:&quot;);
+        Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
+    }
+
+    /**
+     * 调用系统相机
+     *
+     * @param context
+     */
+    public static void openCamera(Context context) {
+        Intent intent = new Intent(); // 调用照相机
+        intent.setAction(&quot;android.media.action.STILL_IMAGE_CAMERA&quot;);
+        intent.setFlags(0x34c40000);
+        context.startActivity(intent);
+    }
+
+    /**
+     * 获取移动设备标识码
+     * 需要权限android.permission.READ_PHONE_STATE
+     *
+     * @return
+     */
+    public static String getIMEI() {
+        TelephonyManager tel = (TelephonyManager) CXWYApplication.getContext()
+                .getSystemService(Context.TELEPHONY_SERVICE);
+        return tel.getDeviceId();
+    }
+
+    /**
+     * 获得手机型号
+     *
+     * @return
+     */
+    public static String getPhoneType() {
+        return Build.MODEL;
+    }
+
+    /**
+     * 打开手机上安装的指定包名的app
+     *
+     * @param context
+     * @param packageName
+     */
+    public static void openApp(Context context, String packageName) {
+        Intent mainIntent = CXWYApplication.getContext().getPackageManager()
+                .getLaunchIntentForPackage(packageName);
+        if (mainIntent == null) {
+            mainIntent = new Intent(packageName);
+        } else {
+            KLog.i(&quot;Action:&quot; + mainIntent.getAction());
+        }
+        context.startActivity(mainIntent);
+    }
+
+    public static boolean openAppActivity(Context context, String packageName,
+                                          String activityName) {
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_LAUNCHER);
+        ComponentName cn = new ComponentName(packageName, activityName);
+        intent.setComponent(cn);
+        try {
+            context.startActivity(intent);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    /**
+     * 判断wifi是否打开
+     *
+     * @return
+     */
+    public static boolean isWifiOpen() {
+        boolean isWifiConnect = false;
+        ConnectivityManager cm = (ConnectivityManager) CXWYApplication.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        // check the networkInfos numbers
+        NetworkInfo[] networkInfos = cm.getAllNetworkInfo();
+        for (int i = 0; i &lt; networkInfos.length; i++) {
+            if (networkInfos[i].getState() == NetworkInfo.State.CONNECTED) {
+                if (networkInfos[i].getType() == ConnectivityManager.TYPE_MOBILE) {
+                    isWifiConnect = false;
+                }
+                if (networkInfos[i].getType() == ConnectivityManager.TYPE_WIFI) {
+                    isWifiConnect = true;
+                }
+            }
+        }
+        return isWifiConnect;
+    }
+
+    /**
+     * 卸载指定包名的app
+     *
+     * @param context
+     * @param packageName
+     */
+    public static void uninstallApk(Context context, String packageName) {
+        if (isPackageExist(packageName)) {
+            Uri packageURI = Uri.parse(&quot;package:&quot; + packageName);
+            Intent uninstallIntent = new Intent(Intent.ACTION_DELETE,
+                    packageURI);
+            context.startActivity(uninstallIntent);
+        }
+    }
+
+    @SuppressWarnings(&quot;deprecation&quot;)
+    public static void copyTextToBoard(String string) {
+        if (TextUtils.isEmpty(string))
+            return;
+        ClipboardManager clip = (ClipboardManager) CXWYApplication.getContext()
+                .getSystemService(Context.CLIPBOARD_SERVICE);
+        clip.setText(string);
+//	AppContext.showToast(R.string.copy_success);
+    }
+
+    /**
+     * 发送邮件
+     *
+     * @param context
+     * @param subject 主题
+     * @param content 内容
+     * @param emails  邮件地址
+     */
+    public static void sendEmail(Context context, String subject,
+                                 String content, String... emails) {
+        try {
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            // 模拟器
+            // intent.setType(&quot;text/plain&quot;);
+            intent.setType(&quot;message/rfc822&quot;); // 真机
+            intent.putExtra(Intent.EXTRA_EMAIL, emails);
+            intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+            intent.putExtra(Intent.EXTRA_TEXT, content);
+            context.startActivity(intent);
+        } catch (ActivityNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static int getStatuBarHeight() {
+        Class&lt;?&gt; c = null;
+        Object obj = null;
+        Field field = null;
+        int x = 0, sbar = 38;// 默认为38，貌似大部分是这样的
+        try {
+            c = Class.forName(&quot;com.android.internal.R$dimen&quot;);
+            obj = c.newInstance();
+            field = c.getField(&quot;status_bar_height&quot;);
+            x = Integer.parseInt(field.get(obj).toString());
+            sbar = CXWYApplication.getContext().getResources()
+                    .getDimensionPixelSize(x);
+
+        } catch (Exception e1) {
+            e1.printStackTrace();
+        }
+        return sbar;
+    }
+
+    public static int getActionBarHeight(Context context) {
+        int actionBarHeight = 0;
+        TypedValue tv = new TypedValue();
+        if (context.getTheme().resolveAttribute(android.R.attr.actionBarSize,
+                tv, true))
+            actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data,
+                    context.getResources().getDisplayMetrics());
+
+        if (actionBarHeight == 0
+                &amp;&amp; context.getTheme().resolveAttribute(R.attr.actionBarSize,
+                tv, true)) {
+            actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data,
+                    context.getResources().getDisplayMetrics());
+        }
+
+        return actionBarHeight;
+    }
+
+    public static boolean hasStatusBar(Activity activity) {
+        WindowManager.LayoutParams attrs = activity.getWindow().getAttributes();
+        if ((attrs.flags &amp; WindowManager.LayoutParams.FLAG_FULLSCREEN) == WindowManager.LayoutParams.FLAG_FULLSCREEN) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    /**
+     * 调用系统安装了的应用分享
+     *
+     * @param context
+     * @param title
+     * @param url
+     */
+    public static void showSystemShareOption(Activity context,
+                                             final String title, final String url) {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType(&quot;text/plain&quot;);
+        intent.putExtra(Intent.EXTRA_SUBJECT, &quot;分享：&quot; + title);
+        intent.putExtra(Intent.EXTRA_TEXT, title + &quot; &quot; + url);
+        context.startActivity(Intent.createChooser(intent, &quot;选择分享&quot;));
+    }
+
+    /**
+     * 获取当前网络类型
+     *
+     * @return 0：没有网络 1：WIFI网络 2：WAP网络 3：NET网络
+     */
+    public static int getNetworkType() {
+        int netType = 0;
+        ConnectivityManager connectivityManager = (ConnectivityManager) CXWYApplication.getContext()
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        if (networkInfo == null) {
+            return netType;
+        }
+        int nType = networkInfo.getType();
+        if (nType == ConnectivityManager.TYPE_MOBILE) {
+            String extraInfo = networkInfo.getExtraInfo();
+            if (!TextUtils.isEmpty(extraInfo)) {
+                if (extraInfo.toLowerCase().equals(&quot;cmnet&quot;)) {
+                    netType = NETTYPE_CMNET;
+                } else {
+                    netType = NETTYPE_CMWAP;
+                }
+            }
+        } else if (nType == ConnectivityManager.TYPE_WIFI) {
+            netType = NETTYPE_WIFI;
+        }
+        return netType;
+    }
+
+
+}
+
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[android studio界面简单介绍]]></title>
+        <id>https://BCing.github.io/post/ztwvGkQ7d/</id>
+        <link href="https://BCing.github.io/post/ztwvGkQ7d/">
+        </link>
+        <updated>2016-06-18T09:34:54.000Z</updated>
+        <summary type="html"><![CDATA[<p>android studio 界面简单介绍</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>android studio 界面简单介绍</p>
+<!-- more -->
+<h2 id="首先简单介绍项目的结构">首先简单介绍项目的结构：</h2>
+<p>项目结构如下图：</p>
+<figure data-type="image" tabindex="1"><img src="https://BCing.github.io/post-images/1602668169062.jpg" alt="" loading="lazy"></figure>
+<p>具体信息：</p>
+<pre><code> idea：//AS生成的工程配置文件，类似Eclipse的project.properties。
+ app：//AS创建工程中的一个Module。
+ gradle：//构建工具系统的jar和wrapper等，jar告诉了AS如何与系统安装的gradle构建联系。
+   build：//构建目录，相当于Eclipse中默认Java工程的bin目录
+        编译生成的apk也在这个目录的outs子目录，不过在AS的工程里是默认不显示out目录的，就算有编译结果也不显示，右键打开通过文件夹直接可以看。
+    libs：//依赖包，包含jar包和jni等包。
+    src：//源码，相当于eclipse的工程。
+    main：//主文件夹 
+        java：//Java代码，包含工程和新建是默认产生的Test工程源码。 
+        res：//资源文件，类似Eclipse。
+            layout：//App布局及界面元素配置，雷同Eclipse。
+            menu：//App菜单配置，雷同Eclipse。 
+            values：//雷同Eclipse。
+                dimens.xml：//定义css的配置文件。 
+                strings.xml：//定义字符串的配置文件。 
+                styles.xml：//定义style的配置文件。
+                ......：//arrays等其他文件。
+            ......：//assets等目录
+        AndroidManifest.xml：//App基本信息（Android管理文件） 
+        ic_launcher-web.png：//App图标 
+    build.gradle：//Module的Gradle构建脚本
+</code></pre>
+<h2 id="然后介绍android-studio的主界面">然后介绍android studio的主界面</h2>
+<figure data-type="image" tabindex="2"><img src="https://BCing.github.io/post-images/1602668204529.jpg" alt="" loading="lazy"></figure>
+<h2 id="android-studio和eclipse的比较">android studio和eclipse的比较</h2>
+<p>具体说就是：</p>
+<pre><code>android studio是单工程的开发模式
+android studio中的application相当于eclipse里的workspace概念
+android studio中的module相当于eclipse里的project概念
+</code></pre>
+<h2 id="android-studio的工程根目录下的buildgradle文件">android studio的工程根目录下的build.gradle文件：</h2>
+<figure data-type="image" tabindex="3"><img src="https://BCing.github.io/post-images/1602668235962.jpg" alt="" loading="lazy"></figure>
+<h2 id="android-studio的工程根目录下的module的buildgradle文件">android studio的工程根目录下的Module的build.gradle文件</h2>
+<figure data-type="image" tabindex="4"><img src="https://BCing.github.io/post-images/1602668325054.jpg" alt="" loading="lazy"></figure>
+<h2 id="android-studio中的其他常用设置">android studio中的其他常用设置：</h2>
+<h3 id="1设置主题">1.设置主题：</h3>
+<figure data-type="image" tabindex="5"><img src="https://BCing.github.io/post-images/1602668368984.jpg" alt="" loading="lazy"></figure>
+<h3 id="2设置快捷键">2.设置快捷键</h3>
+<figure data-type="image" tabindex="6"><img src="https://BCing.github.io/post-images/1602668397094.jpg" alt="" loading="lazy"></figure>
+<h3 id="3自定义代码属性">3.自定义代码属性：</h3>
+<figure data-type="image" tabindex="7"><img src="https://BCing.github.io/post-images/1602668425540.jpg" alt="" loading="lazy"></figure>
+<h3 id="4版本控制">4.版本控制：</h3>
+<p>设置中的版本控制<br>
+<img src="https://BCing.github.io/post-images/1602668473080.jpg" alt="设置中的版本控制" loading="lazy"><br>
+工具栏中的版本控制<br>
+<img src="https://BCing.github.io/post-images/1602668507493.jpg" alt="工具栏中的版本控制" loading="lazy"></p>
+<h3 id="5选择设置模拟器">5.选择/设置模拟器</h3>
+<figure data-type="image" tabindex="8"><img src="https://BCing.github.io/post-images/1602668540210.jpg" alt="" loading="lazy"></figure>
+<h3 id="6还有其他啦啦啦啦~~~">6.还有其他，啦啦啦啦~~~</h3>
+]]></content>
+    </entry>
+</feed>

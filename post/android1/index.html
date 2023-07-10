@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>SlidingMenu的使用 | CBing 小站</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://BCing.github.io/favicon.ico?v=1688982863407">
+<link rel="stylesheet" href="https://BCing.github.io/styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="SlidingMenu的使用
+
+		SlidingMenu menu = new SlidingMenu(this);
+		// 设置滑动方向
+		menu.setMode(SlidingMenu.LEFT);
+		// 设置监听开始滑动的..." />
+    <meta name="keywords" content="Android,code" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://BCing.github.io">
+        <img src="https://BCing.github.io/images/avatar.png?v=1688982863407" class="site-logo">
+        <h1 class="site-title">CBing 小站</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/tag/code/" class="site-nav">
+            技术
+          </a>
+        
+      
+        
+          <a href="/tag/life/" class="site-nav">
+            生活
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      CBing 小站
+    </div>
+    <div class="site-footer">
+       | <a class="rss" href="https://BCing.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">SlidingMenu的使用</h2>
+            <div class="post-date">2015-11-16</div>
+            
+            <div class="post-content" v-pre>
+              <p>SlidingMenu的使用</p>
+<!-- more -->
+<pre><code>		SlidingMenu menu = new SlidingMenu(this);
+		// 设置滑动方向
+		menu.setMode(SlidingMenu.LEFT);
+		// 设置监听开始滑动的触碰范围
+		menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
+		// 设置边缘阴影的宽度，通过dimens资源文件中的ID设置
+		menu.setShadowWidthRes(R.dimen.shadow_width);
+		// 设置边缘阴影的颜色/图片，通过资源文件ID设置
+		menu.setShadowDrawable(R.drawable.shadow);
+		// 设置menu全部打开后，主界面剩余部分与屏幕边界的距离，通过dimens资源文件ID设置
+		menu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
+		// 设置是否淡入淡出
+		menu.setFadeEnabled(true);
+		// 设置淡入淡出的值，只在setFadeEnabled设置为true时有效
+		menu.setFadeDegree(0.35f);
+		// 将menu绑定到Activity，同时设置绑定类型
+		menu.attachToActivity(this, SlidingMenu.SLIDING_WINDOW);
+		// 设置menu的layout
+		menu.setMenu(R.layout.slide_menu);
+		// 设置menu的背景颜色
+		 menu.setBackgroundColor(getResources().getColor(
+		 android.R.color.background_dark));
+		// 获取menu的layout
+		View menuroot = menu.getMenu();
+		//设置menu布局中控件的事件
+		Button button1 = (Button) menuroot.findViewById(R.id.Button1);
+		button1.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(final View v) {
+				// TODO Auto-generated method stub
+Toast.makeText(MainActivity.this,&quot;点击显示menu&quot;,Toast.LENGTH_LONG).show();
+}});
+
+
+
+
+</code></pre>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://BCing.github.io/tag/9ENwBr0DW/" class="tag">
+                    Android
+                  </a>
+                
+                  <a href="https://BCing.github.io/tag/code/" class="tag">
+                    code
+                  </a>
+                
+              </div>
+            
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+
+
+  </body>
+</html>

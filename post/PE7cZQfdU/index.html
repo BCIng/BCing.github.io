@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>Android模拟屏幕点击 | CBing 小站</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://BCing.github.io/favicon.ico?v=1688982863407">
+<link rel="stylesheet" href="https://BCing.github.io/styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="
+Android模拟屏幕点击
+在Android开发中如果要使用 模拟点击等操作，一般是需要使用 adb 命令。但是如果使用 adb ，需要开启手机开发者模式，用数据线连接电脑。然后在电脑上发送 adb 命令。这样操作太麻烦，有没有什么办法能..." />
+    <meta name="keywords" content="java,Android,code" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://BCing.github.io">
+        <img src="https://BCing.github.io/images/avatar.png?v=1688982863407" class="site-logo">
+        <h1 class="site-title">CBing 小站</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/tag/code/" class="site-nav">
+            技术
+          </a>
+        
+      
+        
+          <a href="/tag/life/" class="site-nav">
+            生活
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      CBing 小站
+    </div>
+    <div class="site-footer">
+       | <a class="rss" href="https://BCing.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">Android模拟屏幕点击</h2>
+            <div class="post-date">2021-02-22</div>
+            
+              <div class="feature-container" style="background-image: url('https://BCing.github.io/post-images/PE7cZQfdU.png')">
+              </div>
+            
+            <div class="post-content" v-pre>
+              <!-- more -->
+<h3 id="android模拟屏幕点击">Android模拟屏幕点击</h3>
+<p>在Android开发中如果要使用 模拟点击等操作，一般是需要使用 adb 命令。但是如果使用 adb ，需要开启手机开发者模式，用数据线连接电脑。然后在电脑上发送 adb 命令。这样操作太麻烦，有没有什么办法能直接在手机上，自己模拟 adb 命令。</p>
+<h3 id="使用-processbuilder">使用 ProcessBuilder</h3>
+<p>ProcessBuilder 文档地址   <a href="https://developer.android.google.cn/reference/java/lang/ProcessBuilder?hl=zh-cn">https://developer.android.google.cn/reference/java/lang/ProcessBuilder?hl=zh-cn</a></p>
+<h4 id="processbuilder-的用途">ProcessBuilder 的用途</h4>
+<p>管理着一系列关于一个进程的属性，并且可以通过这些属性创建一个系统进程（Java Process的子进程）</p>
+<h4 id="processbuilder-管理的属性">ProcessBuilder 管理的属性</h4>
+<ol>
+<li>command, 指向着一系列可能会被执行的外部文件，和一系列取决于所处系统的操作系统命令</li>
+<li>environment, 取决于所处系统的环境变量，起始值当前进程的环境变量拷贝</li>
+<li>working directory, 默认值是该进程的工作目录。</li>
+<li>standard input、standard output、standout error,指向该进程的各种流，可以通过Process类下的相应方法获得</li>
+<li>redirectErrorStream, 用来指示该进程的standard output和error output是否输出到同一个地方</li>
+</ol>
+<h4 id="注意事项">注意事项</h4>
+<p>由于该类没有使用同步锁，因此在多线程情况使用时需要手动在外部使用同步锁的操作</p>
+<h3 id="process">Process</h3>
+<h4 id="1-process-类是什么">1. Process 类是什么？</h4>
+<ol>
+<li>Process 本身是一个抽象类，就其本身来说代表着对一个进程的操作控制，同时拥有着关于这个进程的一些信息。</li>
+<li>由ProcessBuilder.start() 和 Runtime.exec() 创建一个Process的子类对象，通过该对象进行操作。</li>
+</ol>
+<h4 id="2-process-类能够对进程进行哪些操作">2. Process 类能够对进程进行哪些操作？</h4>
+<ol>
+<li>获取进程的输入输出流</li>
+<li>查看进程的退出状态</li>
+<li>杀死进程</li>
+<li>等待进程执行的完成</li>
+</ol>
+<h3 id="模拟点击示例">模拟点击示例</h3>
+<p>java</p>
+<pre><code>// adb shell tap x y
+    private  void  Tap(int x,int y){
+        String[] order = {&quot;input&quot;, &quot;tap&quot;, &quot;&quot;+x, &quot;&quot;+y};
+        try {
+            new ProcessBuilder(order).start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+</code></pre>
+<p>kotlin</p>
+<pre><code>// adb shell tap x y 
+private fun click(x:Int,y:Int) {
+        val order = listOf(&quot;input&quot;,
+                &quot;tap&quot;,
+                &quot;&quot; + x,
+                &quot;&quot; + y)
+        ProcessBuilder(order).start()
+ }
+</code></pre>
+<p>也可以执行其他 类似于 adb 的命令</p>
+<p>封装  ShellUtils.java</p>
+<pre><code>public class ShellUtils {
+
+    private static ProcessBuilder processBuilder = new ProcessBuilder();
+
+    public static Process exec(String[] commend) {
+        Process process = null;
+        try {
+//            String[] commends = new String[commend.size()];
+//            commend.toArray(commends);
+            processBuilder.command(commend);
+            process = processBuilder.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return process;
+    }
+
+
+    public static String getOutput(Process process) {
+        String output = null;
+        BufferedReader reader = null;
+        try {
+            if (process != null) {
+                StringBuffer stringBuffer = new StringBuffer();
+                reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+                while (reader.read() != -1){
+                    stringBuffer.append(&quot;\n&quot; + reader.readLine());
+                }
+                output = stringBuffer.toString();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        closeQuietly(reader);
+        return output;
+    }
+
+    public static String getError(Process process) {
+        String errput = null;
+        BufferedReader reader = null;
+        try {
+            if (process != null) {
+                StringBuffer stringBuffer = new StringBuffer();
+                reader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+                while (reader.read() != -1){
+                    stringBuffer.append(&quot;\n&quot; + reader.readLine());
+                }
+                errput = stringBuffer.toString();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        closeQuietly(reader);
+        return errput;
+    }
+
+    public static void closeQuietly(Reader reader) {
+        try {
+            if (reader != null) {
+                reader.close();
+            }
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public static void destroy(Process process) {
+        if (process != null) {
+            process.destroyForcibly();
+        }
+    }
+}
+
+</code></pre>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://BCing.github.io/tag/TXr5HDYIR/" class="tag">
+                    java
+                  </a>
+                
+                  <a href="https://BCing.github.io/tag/9ENwBr0DW/" class="tag">
+                    Android
+                  </a>
+                
+                  <a href="https://BCing.github.io/tag/code/" class="tag">
+                    code
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://BCing.github.io/post/x15tuHFAL/">
+                  <h3 class="post-title">
+                    我们不过是在平凡的世界里的一颗沙砾
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+
+
+  </body>
+</html>

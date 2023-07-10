@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>ListView中item与控件抢夺焦点解决办法 | CBing 小站</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://BCing.github.io/favicon.ico?v=1688982863407">
+<link rel="stylesheet" href="https://BCing.github.io/styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="ListView中item与控件抢夺焦点解决办法
+
+
+1.将ListView中的Item布局中的子控件focusable属性设置为false
+2.在getView方法中设置button.setFocusable(false)
+3.设置ite..." />
+    <meta name="keywords" content="Android,code" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://BCing.github.io">
+        <img src="https://BCing.github.io/images/avatar.png?v=1688982863407" class="site-logo">
+        <h1 class="site-title">CBing 小站</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/tag/code/" class="site-nav">
+            技术
+          </a>
+        
+      
+        
+          <a href="/tag/life/" class="site-nav">
+            生活
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      CBing 小站
+    </div>
+    <div class="site-footer">
+       | <a class="rss" href="https://BCing.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">ListView中item与控件抢夺焦点解决办法</h2>
+            <div class="post-date">2015-11-19</div>
+            
+            <div class="post-content" v-pre>
+              <p>ListView中item与控件抢夺焦点解决办法</p>
+<!-- more -->
+<ul>
+<li>1.将ListView中的Item布局中的子控件focusable属性设置为false</li>
+<li>2.在getView方法中设置button.setFocusable(false)</li>
+<li>3.设置item的根布局的属性android:descendantFocusability=&quot;blocksDescendants&quot;</li>
+</ul>
+<p>这三种方法都是为了让Button等控件不能获取焦点，从而使得item可以响应点击事件。</p>
+<p>第三种方法使用起来比较方便</p>
+<p>它是将item布局中的其他所有控件都设置为不能获取焦点</p>
+<ul>
+<li>android:descendantFocusability属性共有三个取值，分别为</li>
+<li>beforeDescendants：viewgroup会优先其子类控件而获取到焦点</li>
+<li>afterDescendants：viewgroup 只有当其子类控件不需要获取焦点时才获取焦点</li>
+<li>blocksDescendants：viewgroup 会覆盖子类控件而直接获得焦点</li>
+</ul>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://BCing.github.io/tag/9ENwBr0DW/" class="tag">
+                    Android
+                  </a>
+                
+                  <a href="https://BCing.github.io/tag/code/" class="tag">
+                    code
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://BCing.github.io/post/android1/">
+                  <h3 class="post-title">
+                    SlidingMenu的使用
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+
+
+  </body>
+</html>
